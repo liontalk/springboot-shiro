@@ -1,6 +1,7 @@
 package cn.liontalk.springbootshiro.config;
 
 
+import at.pollux.thymeleaf.shiro.dialect.ShiroDialect;
 import cn.liontalk.springbootshiro.realm.ShiroRealm;
 import org.apache.shiro.authc.credential.CredentialsMatcher;
 import org.apache.shiro.authc.credential.HashedCredentialsMatcher;
@@ -210,9 +211,9 @@ public class ShiroConfig {
     }
 
     //thymeleaf模板引擎和shiro整合时使用
-//    @Bean
-//    public ShiroDialect shiroDialect() {
-//        return new ShiroDialect();
-//    }
+    @Bean
+    public ShiroDialect shiroDialect() {
+        return new ShiroDialect();
+    }
 }
 
