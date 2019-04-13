@@ -61,9 +61,15 @@ public class ShiroConfig {
     public ShiroFilterFactoryBean shiroFilterFactoryBean() {
         ShiroFilterFactoryBean shiroFilterFactoryBean = new ShiroFilterFactoryBean();
         shiroFilterFactoryBean.setSecurityManager(securityManager());
-        shiroFilterFactoryBean.setLoginUrl("/login");//不设置默认找web工程根目录下的login.jsp页面
-        shiroFilterFactoryBean.setSuccessUrl("/index");//登录成功之后要跳转的连接
-        shiroFilterFactoryBean.setUnauthorizedUrl("/403");//未授权跳转页面
+
+        //不设置默认找web工程根目录下的login.jsp页面
+        shiroFilterFactoryBean.setLoginUrl("/login");
+
+        //登录成功之后要跳转的连接
+        shiroFilterFactoryBean.setSuccessUrl("/index");
+
+        //未授权跳转页面
+        shiroFilterFactoryBean.setUnauthorizedUrl("/403");
 
         /* //自定义拦截器 , 多个filter的设置 */
 //        Map<String, Filter> filters = new LinkedHashMap<>();
@@ -74,18 +80,24 @@ public class ShiroConfig {
 
         Map<String, String> filterChainDefinitionMap = new LinkedHashMap<>();
         //filterChainDefinitionManager必须是LinkedHashMap因为它必须保证有序
-        filterChainDefinitionMap.put("/css/**", "anon");//静态资源不要求权限 , 若有其他目录下文件(如js,img等)也依此设置
+
+        //静态资源不要求权限 , 若有其他目录下文件(如js,img等)也依此设置
+        filterChainDefinitionMap.put("/css/**", "anon");
 
         filterChainDefinitionMap.put("/", "anon");
-        filterChainDefinitionMap.put("/login", "anon");//配置不需要权限访问的部分url
+
+        //配置不需要权限访问的部分url
+        filterChainDefinitionMap.put("/login", "anon");
 
         filterChainDefinitionMap.put("/logout", "logout");
 
-        filterChainDefinitionMap.put("/user/**", "authc,roles[ROLE_USER]");//用户为ROLE_USER 角色可以访问 . 由用户角色控制用户行为 .
+        //用户为ROLE_USER 角色可以访问 . 由用户角色控制用户行为 .
+        filterChainDefinitionMap.put("/user/**", "authc,roles[ROLE_USER]");
         filterChainDefinitionMap.put("/events/**", "authc,roles[ROLE_ADMIN]");
         //        filterChainDefinitionMap.put("/user/edit/**", "authc,perms[user:edit]");// 这里为了测试 , 固定写死的值 , 也可以从数据库或其他配置中读取 , 此处是用权限控制
 
-        filterChainDefinitionMap.put("/**", "authc");//需要登录访问的资源 , 一般将/**放在最下边
+        //需要登录访问的资源 , 一般将/**放在最下边
+        filterChainDefinitionMap.put("/**", "authc");
 
         shiroFilterFactoryBean.setFilterChainDefinitionMap(filterChainDefinitionMap);
         return shiroFilterFactoryBean;
@@ -101,7 +113,8 @@ public class ShiroConfig {
     public SimpleCookie rememberMeCookie() {
         //这个参数是cookie的名称，对应前端的checkbox的name = rememberMe
         SimpleCookie simpleCookie = new SimpleCookie(COOKIE_NAME);
-        simpleCookie.setMaxAge(604800);//记住我cookie生效时间7天 ,单位秒
+        //记住我cookie生效时间7天 ,单位秒
+        simpleCookie.setMaxAge(604800);
         return simpleCookie;
     }
 
@@ -111,7 +124,9 @@ public class ShiroConfig {
     public CookieRememberMeManager rememberMeManager() {
         CookieRememberMeManager cookieRememberMeManager = new CookieRememberMeManager();
         cookieRememberMeManager.setCookie(rememberMeCookie());
-        cookieRememberMeManager.setCipherKey(Base64.decode("3AvVhmFLUs0KTA3Kprsdag=="));//rememberMe cookie加密的密钥 建议每个项目都不一样 默认AES算法 密钥长度(128 256 512 位)
+
+        //rememberMe cookie加密的密钥 建议每个项目都不一样 默认AES算法 密钥长度(128 256 512 位)
+        cookieRememberMeManager.setCipherKey(Base64.decode("3AvVhmFLUs0KTA3Kprsdag=="));
         return cookieRememberMeManager;
     }
 
@@ -124,13 +139,11 @@ public class ShiroConfig {
     public SessionManager sessionManager() {
         DefaultWebSessionManager sessionManager = new DefaultWebSessionManager();
         Collection<SessionListener> listeners = new ArrayList<>();
-        //listeners.add(new BDSessionListener());
-        sessionManager.setSessionListeners(listeners);
         sessionManager.setSessionDAO(sessionDAO());
         return sessionManager;
     }
     // ==================== Cookie及Session管理 end ====================
-    //endregion
+
 
     /**
      * SecurityManager : 核心安全事务管理器 , 权限管理
@@ -140,7 +153,8 @@ public class ShiroConfig {
     public DefaultWebSecurityManager securityManager() {
         DefaultWebSecurityManager securityManager = new DefaultWebSecurityManager();
         securityManager.setRealm(shiroRealm(null));
-        securityManager.setCacheManager(ehCacheManager());////用户授权/认证信息Cache, 采用EhCache 缓存
+        //用户授权/认证信息Cache, 采用EhCache 缓存
+        securityManager.setCacheManager(ehCacheManager());
 
         // 自定义session管理 使用redis
         securityManager.setSessionManager(sessionManager());
@@ -158,7 +172,10 @@ public class ShiroConfig {
     @DependsOn("lifecycleBeanPostProcessor")
     public ShiroRealm shiroRealm(CredentialsMatcher matcher) {
         ShiroRealm realm = new ShiroRealm();
-        realm.setCredentialsMatcher(matcher);//密码校验实现
+        /**
+         * 密码校验实现
+         */
+        realm.setCredentialsMatcher(matcher);
         return realm;
     }
 
@@ -170,7 +187,10 @@ public class ShiroConfig {
     @DependsOn("lifecycleBeanPostProcessor")
     public EhCacheManager ehCacheManager() {
         EhCacheManager em = new EhCacheManager();
-        em.setCacheManagerConfigFile("classpath:config/ehcache.xml");//配置文件路径
+        /**
+         * 配置文件路径
+         */
+        em.setCacheManagerConfigFile("classpath:config/ehcache.xml");
         return em;
     }
 
@@ -193,7 +213,8 @@ public class ShiroConfig {
     @Bean(name = "hashedCredentialsMatcher")
     public HashedCredentialsMatcher hashedCredentialsMatcher() {
         HashedCredentialsMatcher credentialsMatcher = new HashedCredentialsMatcher();
-        credentialsMatcher.setHashAlgorithmName("MD5");//指定加密方式方式，也可以在这里加入缓存，当用户超过五次登陆错误就锁定该用户禁止不断尝试登陆
+        //指定加密方式方式，也可以在这里加入缓存，当用户超过五次登陆错误就锁定该用户禁止不断尝试登陆
+        credentialsMatcher.setHashAlgorithmName("MD5");
         credentialsMatcher.setHashIterations(2);
         credentialsMatcher.setStoredCredentialsHexEncoded(true);
         return credentialsMatcher;
