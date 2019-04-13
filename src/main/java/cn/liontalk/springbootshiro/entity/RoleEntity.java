@@ -59,5 +59,5 @@ public class RoleEntity {
     /**
      * 权限菜单
      */
-    private List<Long> menuIds;
+    private List<PermissionEntity> permissionEntityList;
 }

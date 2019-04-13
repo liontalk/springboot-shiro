@@ -15,7 +15,7 @@ import java.util.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 @Accessors(chain = true)
-public class MenuEntity implements Serializable {
+public class PermissionEntity implements Serializable {
 
 
     private static final long serialVersionUID = 1L;
