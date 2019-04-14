@@ -37,7 +37,7 @@
 
 
     <select id="findManagerByName" resultMap="BaseColumnResultMap">
-        select <include refid="BaseColumn"/> from  sys_manager as z WHERE z.name = #{name}
+        select <include refid="BaseColumn"/> from  sys_manager as z WHERE z.username = #{username}
     </select>
 
 </mapper>
