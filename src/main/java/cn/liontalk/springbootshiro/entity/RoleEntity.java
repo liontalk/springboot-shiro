@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
 import org.springframework.format.annotation.DateTimeFormat;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
@@ -14,7 +15,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Accessors(chain = true)
-public class RoleEntity {
+public class RoleEntity implements Serializable {
 
     /**
      * 角色id
@@ -59,5 +60,5 @@ public class RoleEntity {
     /**
      * 权限菜单
      */
-    private List<PermissionEntity> permissionEntityList;
+    private List<Long> menuEntityList;
 }

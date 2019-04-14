@@ -6,13 +6,14 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class ManagerEntity {
+public class ManagerEntity implements Serializable {
 
     /**
      * 管理员id
@@ -76,9 +77,9 @@ public class ManagerEntity {
 
 
     /**
-     * 管理员角色
+     * 管理员角色id
      */
-    private List<RoleEntity> roleEntityList;
+    private List<Long> roleEntityList;
 
 
 }

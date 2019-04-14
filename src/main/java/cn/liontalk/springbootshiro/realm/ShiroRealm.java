@@ -2,9 +2,9 @@ package cn.liontalk.springbootshiro.realm;
 
 import cn.liontalk.springbootshiro.constant.SysConstant;
 import cn.liontalk.springbootshiro.entity.ManagerEntity;
-import cn.liontalk.springbootshiro.entity.PermissionEntity;
-import cn.liontalk.springbootshiro.entity.RoleEntity;
 import cn.liontalk.springbootshiro.service.LoginService;
+import cn.liontalk.springbootshiro.service.MenuService;
+import cn.liontalk.springbootshiro.util.ShiroUtils;
 import org.apache.shiro.authc.*;
 import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.authz.SimpleAuthorizationInfo;
@@ -14,6 +14,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.util.Set;
+
 
 public class ShiroRealm extends AuthorizingRealm {
 
@@ -21,6 +23,9 @@ public class ShiroRealm extends AuthorizingRealm {
 
     @Autowired
     LoginService loginService;
+
+    @Autowired
+    MenuService menuService;
 
 
     /**
@@ -63,21 +68,28 @@ public class ShiroRealm extends AuthorizingRealm {
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principalCollection) {
         logger.info("权限认证。。。");
-        //获取登录用户名
-        String name = (String) principalCollection.getPrimaryPrincipal();
-        //查询用户名称
-        ManagerEntity user = loginService.findManagerByName(name);
-        //添加角色和权限
-        SimpleAuthorizationInfo simpleAuthorizationInfo = new SimpleAuthorizationInfo();
-        for (RoleEntity role : user.getRoleEntityList()) {
-            //添加角色
-            simpleAuthorizationInfo.addRole(role.getRoleName());
-            for (PermissionEntity permission : role.getPermissionEntityList()) {
-                //添加权限
-                simpleAuthorizationInfo.addStringPermission(permission.getPerms());
-            }
-        }
-        return simpleAuthorizationInfo;
+//        //获取登录用户名
+//        String name = (String) principalCollection.getPrimaryPrincipal();
+//        //查询用户名称
+//        ManagerEntity user = loginService.findManagerByName(name);
+//        //添加角色和权限
+//        SimpleAuthorizationInfo simpleAuthorizationInfo = new SimpleAuthorizationInfo();
+//        for (RoleEntity role : user.getRoleEntityList()) {
+//            //添加角色
+//            simpleAuthorizationInfo.addRole(role.getRoleName());
+//            for (MenuEntity permission : role.getMenuEntityList()) {
+//                //添加权限
+//                simpleAuthorizationInfo.addStringPermission(permission.getPerms());
+//            }
+//        }
+//        return simpleAuthorizationInfo;
+
+        logger.info("获取用户拥有的权限");
+        Integer userId = ShiroUtils.getManagerId();
+        Set<String> perms = menuService.listPerms(userId);
+        SimpleAuthorizationInfo info = new SimpleAuthorizationInfo();
+        info.setStringPermissions(perms);
+        return info;
     }
 
 }
