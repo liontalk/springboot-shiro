@@ -1,6 +1,5 @@
 package cn.liontalk.springbootshiro.realm;
 
-import cn.liontalk.springbootshiro.constant.SysConstant;
 import cn.liontalk.springbootshiro.entity.ManagerEntity;
 import cn.liontalk.springbootshiro.service.LoginService;
 import cn.liontalk.springbootshiro.service.MenuService;
@@ -14,8 +13,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.util.HashMap;
 import java.util.Set;
-
+import java.util.Map;
 
 public class ShiroRealm extends AuthorizingRealm {
 
@@ -37,24 +37,28 @@ public class ShiroRealm extends AuthorizingRealm {
      */
     @Override
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken authenticationToken) throws AuthenticationException {
-        logger.info("身份认证授权。。。");
         if (authenticationToken.getCredentials() == null) {
-            return null;
+           return null;
         }
-        String name = authenticationToken.getPrincipal().toString();
+        String username = (String) authenticationToken.getPrincipal();
         String password = new String((char[]) authenticationToken.getCredentials());
-        ManagerEntity managerEntity = loginService.findManagerByName(name);
+        ManagerEntity managerEntity = loginService.findManagerByName(username);
+
+        // 账号不存在
         if (managerEntity == null) {
-            throw new UnknownAccountException("用户名或密码错误!");
+            throw new UnknownAccountException("账号或密码不正确");
         }
-        if (password.equals(managerEntity.getPassword())) {
-            throw new UnknownAccountException("用户名或密码错误!");
+        // 密码错误
+        if (!password.equals(managerEntity.getPassword())) {
+            throw new IncorrectCredentialsException("账号或密码不正确");
         }
-        if (SysConstant.LOCK_STATUS == (managerEntity.getStatus())) {
-            throw new UnknownAccountException("账号已被锁定,请联系管理员！");
+
+        // 账号锁定
+        if (managerEntity.getStatus() == 0) {
+            throw new LockedAccountException("账号已被锁定,请联系管理员");
         }
-        SimpleAuthenticationInfo simpleAuthenticationInfo = new SimpleAuthenticationInfo(name, managerEntity.getPassword(), getName());
-        return simpleAuthenticationInfo;
+        SimpleAuthenticationInfo info = new SimpleAuthenticationInfo(managerEntity, password, getName());
+        return info;
 
     }
 

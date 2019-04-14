@@ -28,26 +28,7 @@ public class ManagerController {
     private ManagerService managerService;
 
 
-    @ApiOperation(value = "管理员登录",notes = "管理员登录")
-    @ApiImplicitParams({
-            @ApiImplicitParam(name="username",value="登录账号",required=true),
-            @ApiImplicitParam(name="password",value="用户密码",required=true)
-    })
-    @PostMapping(value = "/login")
-    @ResponseBody
-    public String managerLogin(@RequestParam("username") String username,
-                               @RequestParam("password") String password){
 
-        password = MD5Utils.encrypt(username,password);
-        UsernamePasswordToken token = new UsernamePasswordToken(username,password);
-        Subject subject =SecurityUtils.getSubject();
-        try{
-            subject.login(token);
-        }catch (Exception e){
-            logger.error("登录失败! " + e.getMessage());
-        }
-        return "Login Successful!";
-    }
 
 
     @ApiOperation(value = "管理员查询",notes = "管理员列表展示")

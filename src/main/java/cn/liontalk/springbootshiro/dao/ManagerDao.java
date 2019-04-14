@@ -20,6 +20,6 @@ public interface ManagerDao {
     /**
      * 根据名称查找管理员
      */
-    ManagerEntity findManagerByName(@Param("name") String name);
+    ManagerEntity findManagerByName(@Param("username") String username);
 
 }
