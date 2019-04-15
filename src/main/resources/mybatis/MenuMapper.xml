@@ -2,8 +2,18 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="cn.liontalk.springbootshiro.dao.MenuDao">
-
-
+    <resultMap id="MenuEntityResultMap" type="cn.liontalk.springbootshiro.entity.MenuEntity">
+        <id column="menu_id" property="menuId"  jdbcType="INTEGER"/>
+        <result column="parent_id" jdbcType="VARCHAR" property="parentId"/>
+        <result column="name" jdbcType="VARCHAR" property="name"/>
+        <result column="url" jdbcType="VARCHAR" property="url"/>
+        <result column="perms" jdbcType="INTEGER" property="perms"/>
+        <result column="type" jdbcType="VARCHAR" property="type"/>
+        <result column="icon" jdbcType="VARCHAR" property="icon"/>
+        <result column="order_num" jdbcType="INTEGER" property="orderNum"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
+    </resultMap>
 
 
     <select id="queryUserPerms" resultType="java.lang.String">
@@ -17,4 +27,19 @@
             ur.user_id = #{userId}
     </select>
 
+
+    <select id="queryMenuByUserId" resultMap="MenuEntityResultMap">
+		select distinct
+		m.menu_id , parent_id, name, url,
+		perms,`type`,icon,order_num,create_time, update_time
+		from sys_menu m
+		left
+		join sys_role_menu rm on m.menu_id = rm.menu_id left join
+		sys_manager_role ur
+		on rm.role_id =ur.role_id where ur.user_id = #{userId}
+		and
+		m.type in(0,1)
+		order by
+		m.order_num
+	</select>
 </mapper>
