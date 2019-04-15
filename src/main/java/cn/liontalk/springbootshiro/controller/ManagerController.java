@@ -1,20 +1,15 @@
 package cn.liontalk.springbootshiro.controller;
 
+import cn.liontalk.springbootshiro.common.result.AjaxResult;
 import cn.liontalk.springbootshiro.entity.ManagerEntity;
 import cn.liontalk.springbootshiro.service.ManagerService;
-import cn.liontalk.springbootshiro.util.MD5Utils;
 import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiImplicitParam;
-import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
-import org.apache.shiro.SecurityUtils;
-import org.apache.shiro.authc.UsernamePasswordToken;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import org.apache.shiro.subject.Subject;
 import java.util.List;
 
 @RestController
@@ -28,13 +23,43 @@ public class ManagerController {
     private ManagerService managerService;
 
 
-
-
-
     @ApiOperation(value = "管理员查询",notes = "管理员列表展示")
     @GetMapping(value = "/list")
-    public List<ManagerEntity> queryAllManager(){
-        return managerService.queryAllManager();
+    public AjaxResult<List<ManagerEntity>> queryAllManager(){
+        List<ManagerEntity> list = managerService.queryAllManager();
+        return AjaxResult.success(list);
     }
+
+
+    @ApiOperation(value = "跳转到更新管理信息页面",notes = "跳转到更新管理信息页面")
+    @GetMapping(value = "/update")
+    public AjaxResult<List<ManagerEntity>> toMangerEditPage(){
+        List<ManagerEntity> list = managerService.queryAllManager();
+        return AjaxResult.success(list);
+    }
+
+    @ApiOperation(value = "更新数据库中管理员信息",notes = "更新数据库中管理员信息")
+    @GetMapping(value = "/edit")
+    public AjaxResult<List<ManagerEntity>> updateManagerInfo(){
+        List<ManagerEntity> list = managerService.queryAllManager();
+        return AjaxResult.success(list);
+    }
+
+    @ApiOperation(value = "管理员查询",notes = "管理员列表展示")
+    @GetMapping(value = "/add")
+    public AjaxResult<List<ManagerEntity>> toMangerAddPage(){
+        List<ManagerEntity> list = managerService.queryAllManager();
+        return AjaxResult.success(list);
+    }
+
+    @ApiOperation(value = "管理员删除",notes = "管理员删除")
+    @GetMapping(value = "/delete")
+    public AjaxResult<List<ManagerEntity>> deleteManagerInfo(){
+        List<ManagerEntity> list = managerService.queryAllManager();
+        return AjaxResult.success(list);
+    }
+
+
+
 
 }

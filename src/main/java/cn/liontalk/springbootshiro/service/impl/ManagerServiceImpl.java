@@ -18,4 +18,19 @@ public class ManagerServiceImpl implements ManagerService {
     public List<ManagerEntity> queryAllManager() {
         return managerDao.queryAllManager();
     }
+
+    @Override
+    public void insertManager(ManagerEntity managerEntity) {
+        managerDao.insertManager(managerEntity);
+    }
+
+    @Override
+    public void deleteManager(List<Integer> list) {
+        managerDao.deleteManager(list);
+    }
+
+    @Override
+    public void updateManager(ManagerEntity managerEntity) {
+        managerDao.updateManager(managerEntity);
+    }
 }

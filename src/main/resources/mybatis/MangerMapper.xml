@@ -32,12 +32,43 @@
     </sql>
 
     <select id="queryAllManager" resultMap="BaseColumnResultMap">
-        SELECT <include refid="BaseColumn"/> FROM sys_manager as z
+        SELECT
+        <include refid="BaseColumn"/>
+        FROM sys_manager as z
     </select>
 
 
     <select id="findManagerByName" resultMap="BaseColumnResultMap">
-        select <include refid="BaseColumn"/> from  sys_manager as z WHERE z.username = #{username}
+        select
+        <include refid="BaseColumn"/>
+        from sys_manager as z WHERE z.username = #{username}
     </select>
 
+
+    <insert id="insertManager" parameterType="cn.liontalk.springbootshiro.entity.ManagerEntity">
+
+    </insert>
+
+
+    <update id="updateManager" parameterType="cn.liontalk.springbootshiro.entity.ManagerEntity">
+        UPDATE `sys_manager`
+        SET
+         `username` = #{username},
+         `name` = #{name},
+         `password` = #{password},
+         `dept_id` = #{},
+         `email` = #{email},
+         `mobile` = #{mobile},
+         `status` = #{status},
+         `user_id_create` = #{userIdCreate},
+         `create_time` = now(),
+         `update_time` = now()
+        WHERE
+            `user_id` = #{userId};
+    </update>
+
+
+    <delete id="deleteManager" parameterType="list">
+
+    </delete>
 </mapper>
