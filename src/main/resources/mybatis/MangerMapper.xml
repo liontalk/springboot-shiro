@@ -46,6 +46,10 @@
 
 
     <insert id="insertManager" parameterType="cn.liontalk.springbootshiro.entity.ManagerEntity">
+      INSERT INTO
+      sys_manaer ()
+
+      values ()
 
     </insert>
 
@@ -69,6 +73,6 @@
 
 
     <delete id="deleteManager" parameterType="list">
-
+        delete from sys_manager where `user_id` = #{userId};
     </delete>
 </mapper>

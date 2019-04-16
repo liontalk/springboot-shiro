@@ -1,4 +1,4 @@
-var prefix = "/sys/user"
+var prefix = "/manager"
 $(function() {
 	var deptId = '';
 	getTreeData();
