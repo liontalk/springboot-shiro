@@ -13,6 +13,7 @@ public interface MenuService {
     /**
      * 获取所有的权限
      * @return
+     *
      */
     Set<String> listPerms(Integer id);
 

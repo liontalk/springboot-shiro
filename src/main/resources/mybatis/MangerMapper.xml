@@ -47,10 +47,8 @@
 
     <insert id="insertManager" parameterType="cn.liontalk.springbootshiro.entity.ManagerEntity">
       INSERT INTO
-      sys_manaer ()
-
-      values ()
-
+      sys_manaer (username,name,password,dept_id,email,mobile,status,user_id_create,create_time,update_time)
+      VALUES (#{username},#{name},#{password},#{deptId},#{email},#{mobbile},#{status},#{userIdCreate},now(),now())
     </insert>
 
 
@@ -60,7 +58,7 @@
          `username` = #{username},
          `name` = #{name},
          `password` = #{password},
-         `dept_id` = #{},
+         `dept_id` = #{deptId},
          `email` = #{email},
          `mobile` = #{mobile},
          `status` = #{status},
