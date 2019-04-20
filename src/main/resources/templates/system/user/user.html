@@ -1,21 +1,36 @@
 <!DOCTYPE html>
 <html lang="zh_CN" xmlns:th="http://www.thymeleaf.org"
 	xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
-<meta charset="utf-8">
-<head th:include="include :: header"></head>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title></title>
+	<meta name="keywords" content="">
+	<meta name="description" content="">
+	<link rel="shortcut icon" href="favicon.ico">
+	<link rel="stylesheet" href="/css/bootstrap.min.css" />
+	<link rel="stylesheet" href="/css/animate.css" />
+	<link rel="stylesheet" href="/css/font-awesome.css" />
+	<link rel="stylesheet" href="/css/style.css" />
+	<link rel="stylesheet" href="/css/plugins/iCheck/custom.css" />
+	<link rel="stylesheet" href="/css/plugins/cropper/cropper.css" />
+	<link rel="stylesheet" href="/js/plugins/layer/laydate/skins/default/laydate.css" />
+	<link rel="stylesheet" href="/css/gg-bootdo.css" />
+</head>
+
 <body class="gray-bg">
 	<div class="wrapper wrapper-content ">
 		<div class="row">
-			<div class="col-sm-3">
-				<div class="ibox ibox-body">
-					<div class="ibox-title">
-						<h5>选择部门</h5>
-					</div>
-					<div class="ibox-content">
-						<div id="jstree"></div>
-					</div>
-				</div>
-			</div>
+			<!--<div class="col-sm-3">-->
+				<!--<div class="ibox ibox-body">-->
+					<!--<div class="ibox-title">-->
+						<!--<h5>选择部门</h5>-->
+					<!--</div>-->
+					<!--<div class="ibox-content">-->
+						<!--<div id="jstree"></div>-->
+					<!--</div>-->
+				<!--</div>-->
+			<!--</div>-->
 			<div class="col-sm-8">
 				<div class="ibox">
 					<div class="ibox-body">
@@ -46,30 +61,42 @@
 			</div>
 		</div>
 		<!--shiro控制bootstraptable行内按钮看见性 来自bootdo的创新方案 -->
-		<div>
-			<script type="text/javascript">
-				var s_edit_h = 'hidden';
-				var s_remove_h = 'hidden';
-				var s_resetPwd_h = 'hidden';
-			</script>
-		</div>
-		<div shiro:hasPermission="sys:user:edit">
-			<script type="text/javascript">
-				s_edit_h = '';
-			</script>
-		</div>
-		<div shiro:hasPermission="sys:user:remove">
-			<script type="text/javascript">
-				var s_remove_h = '';
-			</script>
-		</div>
-		<div shiro:hasPermission="sys:user:resetPwd">
-			<script type="text/javascript">
-				var s_resetPwd_h = '';
-			</script>
-		</div>
+		<!--<div>-->
+			<!--<script type="text/javascript">-->
+				<!--var s_edit_h = 'hidden';-->
+				<!--var s_remove_h = 'hidden';-->
+				<!--var s_resetPwd_h = 'hidden';-->
+			<!--</script>-->
+		<!--</div>-->
+		<!--<div shiro:hasPermission="sys:user:edit">-->
+			<!--<script type="text/javascript">-->
+				<!--s_edit_h = '';-->
+			<!--</script>-->
+		<!--</div>-->
+		<!--<div shiro:hasPermission="sys:user:remove">-->
+			<!--<script type="text/javascript">-->
+				<!--var s_remove_h = '';-->
+			<!--</script>-->
+		<!--</div>-->
+		<!--<div shiro:hasPermission="sys:user:resetPwd">-->
+			<!--<script type="text/javascript">-->
+				<!--var s_resetPwd_h = '';-->
+			<!--</script>-->
+		<!--</div>-->
 	</div>
-	<div th:include="include :: footer"></div>
+	<script type="text/javascript" src="/js/jquery.min.js" ></script>
+	<script type="text/javascript" src="/js/bootstrap.min.js" ></script>
+	<script type="text/javascript" src="/js/plugins/iCheck/icheck.min.js"></script>
+	<script type="text/javascript" src="/js/plugins/cropper/cropper.min.js"></script>
+	<script type="text/javascript" src="/js/plugins/layer/laydate/laydate.js" ></script>
+	<script type="text/javascript" src="/js/plugins/distpicker/distpicker.data.min.js"></script>
+	<script type="text/javascript" src="/js/plugins/distpicker/distpicker.min.js"></script>
+	<script type="text/javascript" src="/js/plugins/bootstrap-table/bootstrap-table.min.js"></script>
+	<script type="text/javascript" src="/js/appjs/sys/user/gg-bootdo.js"></script>
+	<!--校验插件-->
+	<script src="/js/plugins/validate/jquery.validate.min.js"></script>
+	<script src="/js/plugins/validate/jquery.validate.extend.js"></script>
+	<script src="/js/plugins/validate/messages_zh.min.js"></script>
 	<script type="text/javascript" src="/js/appjs/sys/user/user.js"></script>
 </body>
 </html>

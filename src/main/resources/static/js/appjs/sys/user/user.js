@@ -1,7 +1,7 @@
 var prefix = "/manager"
 $(function() {
 	var deptId = '';
-	getTreeData();
+	//getTreeData();
 	load(deptId);
 });
 
@@ -30,14 +30,23 @@ function load(deptId) {
 				showColumns : false, // 是否显示内容下拉框（选择显示的列）
 				sidePagination : "server", // 设置在哪里进行分页，可选值为"client" 或者
 				// "server"
-				queryParams : function(params) {
-					return {
-						// 说明：传入后台的参数包括offset开始索引，limit步长，sort排序列，order：desc或者,以及所有列的键值对
-						limit : params.limit,
-						offset : params.offset,
-						name : $('#searchName').val(),
-						deptId : deptId
-					};
+				// queryParams : function(params) {
+				// 	return {
+				// 		// 说明：传入后台的参数包括offset开始索引，limit步长，sort排序列，order：desc或者,以及所有列的键值对
+				// 		//limit : params.limit,
+				// 		//offset : params.offset,
+				// 		//name : $('#searchName').val(),
+				// 		//deptId : deptId
+				// 	};
+				// },
+
+				onLoadSuccess: function(result)
+				{
+					console.log("result: "+result);
+				},
+				onLoadError: function(err)
+				{
+					console.log("error: "+err);
 				},
 				// //请求服务器数据时，你可以通过重写参数的方式添加一些额外的参数，例如 toolbar 中的参数 如果
 				// queryParamsType = 'limit' ,返回参数必须包含
