@@ -34,7 +34,7 @@
     <select id="queryAllManager" resultMap="BaseColumnResultMap">
         SELECT
         <include refid="BaseColumn"/>
-        FROM sys_manager as z
+        FROM sys_manager as z where z.status = 1
     </select>
 
 
@@ -71,6 +71,10 @@
 
 
     <delete id="deleteManager" parameterType="list">
-        delete from sys_manager where `user_id` = #{userId};
+        UPDATE `sys_manager` SET status = 0
+        WHERE user_id in
+        <foreach collection="list" item="item" open="(" close=")" separator=",">
+            #{item}
+        </foreach>
     </delete>
 </mapper>

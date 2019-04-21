@@ -61,28 +61,28 @@
 			</div>
 		</div>
 		<!--shiro控制bootstraptable行内按钮看见性 来自bootdo的创新方案 -->
-		<!--<div>-->
-			<!--<script type="text/javascript">-->
-				<!--var s_edit_h = 'hidden';-->
-				<!--var s_remove_h = 'hidden';-->
-				<!--var s_resetPwd_h = 'hidden';-->
-			<!--</script>-->
-		<!--</div>-->
-		<!--<div shiro:hasPermission="sys:user:edit">-->
-			<!--<script type="text/javascript">-->
-				<!--s_edit_h = '';-->
-			<!--</script>-->
-		<!--</div>-->
-		<!--<div shiro:hasPermission="sys:user:remove">-->
-			<!--<script type="text/javascript">-->
-				<!--var s_remove_h = '';-->
-			<!--</script>-->
-		<!--</div>-->
-		<!--<div shiro:hasPermission="sys:user:resetPwd">-->
-			<!--<script type="text/javascript">-->
-				<!--var s_resetPwd_h = '';-->
-			<!--</script>-->
-		<!--</div>-->
+		<div>
+			<script type="text/javascript">
+				var s_edit_h = 'hidden';
+				var s_remove_h = 'hidden';
+				var s_resetPwd_h = 'hidden';
+			</script>
+		</div>
+		<div shiro:hasPermission="sys:user:edit">
+			<script type="text/javascript">
+				s_edit_h = '';
+			</script>
+		</div>
+		<div shiro:hasPermission="sys:user:remove">
+			<script type="text/javascript">
+				var s_remove_h = '';
+			</script>
+		</div>
+		<div shiro:hasPermission="sys:user:resetPwd">
+			<script type="text/javascript">
+				var s_resetPwd_h = '';
+			</script>
+		</div>
 	</div>
 	<script type="text/javascript" src="/js/jquery.min.js" ></script>
 	<script type="text/javascript" src="/js/bootstrap.min.js" ></script>
@@ -92,6 +92,7 @@
 	<script type="text/javascript" src="/js/plugins/distpicker/distpicker.data.min.js"></script>
 	<script type="text/javascript" src="/js/plugins/distpicker/distpicker.min.js"></script>
 	<script type="text/javascript" src="/js/plugins/bootstrap-table/bootstrap-table.min.js"></script>
+	<script type="text/javascript" src="/js/plugins/layer/layer.js"></script>
 	<script type="text/javascript" src="/js/appjs/sys/user/gg-bootdo.js"></script>
 	<!--校验插件-->
 	<script src="/js/plugins/validate/jquery.validate.min.js"></script>

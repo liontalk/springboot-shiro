@@ -22,6 +22,10 @@ public class CodeMsg {
         this.message = message;
     }
 
+    /**
+     * 服务器错误
+     */
+    public static CodeMsg SERVER_ERROR = new CodeMsg(500100, "服务器错误");
 
     /**
      * 数据校验异常
@@ -33,9 +37,15 @@ public class CodeMsg {
      */
     public static CodeMsg SUCCESS = new CodeMsg(200, "操作成功");
 
-    /**
-     * 服务器错误
-     */
-    public static CodeMsg SERVER_ERROR = new CodeMsg(500100, "服务器错误");
 
+    /**
+     * 删除操作错误
+     */
+    public static CodeMsg DELETE_ERROR = new CodeMsg(500102, "删除操作错误");
+
+
+    /**
+     * 批量删除操作错误
+     */
+    public static CodeMsg BATCH_DELETE_ERROR = new CodeMsg(500103, "批量删除操作错误");
 }

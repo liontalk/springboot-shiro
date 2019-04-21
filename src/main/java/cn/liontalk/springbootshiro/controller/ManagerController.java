@@ -1,6 +1,7 @@
 package cn.liontalk.springbootshiro.controller;
 
 import cn.liontalk.springbootshiro.common.result.AjaxResult;
+import cn.liontalk.springbootshiro.common.result.CodeMsg;
 import cn.liontalk.springbootshiro.entity.ManagerEntity;
 import cn.liontalk.springbootshiro.service.ManagerService;
 import cn.liontalk.springbootshiro.util.PageUtils;
@@ -13,6 +14,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 @Controller
@@ -69,11 +71,38 @@ public class ManagerController {
     }
 
     @ApiOperation(value = "管理员删除", notes = "管理员删除")
-    @GetMapping(value = "/delete")
-    public AjaxResult<List<ManagerEntity>> deleteManagerInfo() {
+    @RequestMapping(value = "/delete",method = RequestMethod.POST)
+    @ResponseBody
+    public AjaxResult deleteManagerInfo(@RequestParam("id") Integer id) {
         List<Integer> list = new ArrayList<>();
-        managerService.deleteManagerInfo(list);
-        return AjaxResult.success(null);
+        list.add(id);
+        Integer result =  managerService.deleteManagerInfo(list);
+        logger.info("delete manager result is " + result);
+        if(result>0){
+            return AjaxResult.success(result);
+        }else{
+            return AjaxResult.error(CodeMsg.DELETE_ERROR);
+        }
+
+    }
+
+
+
+    @ApiOperation(value = "批量删除管理员删除", notes = "批量删除管理员删除")
+    @RequestMapping(value = "/batch/delete",method = RequestMethod.POST)
+    @ResponseBody
+    public AjaxResult batchDeleteManagerInfo(@RequestParam(value = "ids[]") Integer[] ids) {
+        if(ids==null || ids.length==0){
+            return AjaxResult.error(CodeMsg.DELETE_ERROR);
+        }
+        List<Integer> list = Arrays.asList(ids);
+        Integer result =  managerService.deleteManagerInfo(list);
+        logger.info("batch delete manager result is " + result);
+        if(result>0){
+            return AjaxResult.success(result);
+        }else{
+            return AjaxResult.error(CodeMsg.DELETE_ERROR);
+        }
     }
 
 

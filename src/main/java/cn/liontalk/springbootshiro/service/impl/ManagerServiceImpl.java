@@ -25,8 +25,8 @@ public class ManagerServiceImpl implements ManagerService {
     }
 
     @Override
-    public void deleteManagerInfo(List<Integer> list) {
-        managerDao.deleteManager(list);
+    public int  deleteManagerInfo(List<Integer> list) {
+       return  managerDao.deleteManager(list);
     }
 
     @Override

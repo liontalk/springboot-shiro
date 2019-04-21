@@ -35,7 +35,7 @@ public interface ManagerDao {
      * 删除管理员信息
      * @param list
      */
-    void deleteManager(List<Integer> list);
+    int deleteManager(List<Integer> list);
 
 
     /**

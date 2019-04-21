@@ -27,7 +27,7 @@ public interface ManagerService {
      * 删除管理员信息
      * @param list
      */
-    void deleteManagerInfo(List<Integer> list);
+    int  deleteManagerInfo(List<Integer> list);
 
 
     /**
