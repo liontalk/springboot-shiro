@@ -2,7 +2,6 @@ package cn.liontalk.springbootshiro.controller;
 
 import cn.liontalk.springbootshiro.common.result.AjaxResult;
 import cn.liontalk.springbootshiro.common.result.CodeMsg;
-import cn.liontalk.springbootshiro.entity.ManagerEntity;
 import cn.liontalk.springbootshiro.entity.RoleEntity;
 import cn.liontalk.springbootshiro.service.RoleService;
 import cn.liontalk.springbootshiro.util.PageUtils;
@@ -11,7 +10,6 @@ import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.validation.ValidationAutoConfiguration;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -50,9 +48,44 @@ public class RoleController {
     }
 
 
+    @ApiOperation(value = "角色增加页面", notes = "角色增加页面")
+    @GetMapping(value = "/add")
+    public String  toRoleAddPage() {
+        logger.info("跳转到角色管理....");
+        return PREFIX + "add";
+    }
+
+
+    @ApiOperation(value = "角色更新页面", notes = "角色更新页面")
+    @GetMapping(value = "/update")
+    public String  toRoleUpdatePage() {
+        logger.info("跳转到角色更新....");
+        return PREFIX + "update";
+    }
+
+
+    @ApiOperation(value = "角色增加页面", notes = "角色增加页面")
+    @RequestMapping(value = "/add",method = RequestMethod.POST)
+    @ResponseBody
+    public AjaxResult insertRoleInfo(RoleEntity entity) {
+        roleService.insertRoleInfo(entity);
+        return AjaxResult.success(null);
+    }
+
+
+
+    @ApiOperation(value = "角色更新功能", notes = "角色更新功能")
+    @RequestMapping(value = "/update",method = RequestMethod.POST)
+    @ResponseBody
+    public AjaxResult updateRoleInfo(RoleEntity entity) {
+        roleService.updateRoleInfo(entity);
+        return AjaxResult.success(null);
+    }
+
+
 
     @ApiOperation(value = "角色页面列表", notes = "角色页面列表")
-    @GetMapping(value = "/list")
+    @RequestMapping(value = "/list",method = RequestMethod.GET)
     @ResponseBody
     public PageUtils queryAllManager() {
         List<RoleEntity> list = roleService.queryAllRoles();
@@ -96,6 +129,4 @@ public class RoleController {
             return AjaxResult.error(CodeMsg.DELETE_ERROR);
         }
     }
-
-
 }

@@ -61,4 +61,9 @@ public class MenuServiceImpl implements MenuService {
         List<Tree<MenuEntity>> list = BuildTreeUtils.buildList(trees, "0");
         return list;
     }
+
+    @Override
+    public List<MenuEntity> queryAllMenus() {
+        return menuDao.queryAllMenus();
+    }
 }

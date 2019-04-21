@@ -87,7 +87,6 @@ public class ManagerController {
     }
 
 
-
     @ApiOperation(value = "批量删除管理员删除", notes = "批量删除管理员删除")
     @RequestMapping(value = "/batch/delete",method = RequestMethod.POST)
     @ResponseBody

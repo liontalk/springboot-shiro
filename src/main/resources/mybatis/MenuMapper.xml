@@ -15,6 +15,19 @@
         <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
     </resultMap>
 
+    <sql id="BaseColumnSql">
+      menu.menu_id,
+      menu.parent_id,
+      menu.name,
+      menu.url,
+      menu.perms,
+      menu.type,
+      menu.icon,
+      menu.order_num,
+      menu.create_time,
+      menu.update_time
+    </sql>
+
 
     <select id="queryUserPerms" resultType="java.lang.String">
         SELECT DISTINCT
@@ -53,4 +66,9 @@
             )
         </foreach>
     </insert>
+
+
+    <select id="queryAllMenus"  resultMap="MenuEntityResultMap">
+        SELECT  <include refid="BaseColumnSql"/> FROM  sys_menu as menu
+    </select>
 </mapper>

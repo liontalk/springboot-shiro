@@ -35,4 +35,11 @@ public interface MenuDao {
      */
     int insertRoleAndMenuRel(@Param("id") Long id,List<Long> list);
 
+
+    /**
+     * 查询所有的菜单
+     * @return
+     */
+    List<MenuEntity> queryAllMenus();
+
 }

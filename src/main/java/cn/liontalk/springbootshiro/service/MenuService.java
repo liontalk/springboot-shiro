@@ -22,4 +22,11 @@ public interface MenuService {
      *获取管理员所有的菜单权限
      */
     List<Tree<MenuEntity>> listMenuTree(int userId);
+
+
+    /**
+     * 获取所有的菜单
+     * @return
+     */
+    List<MenuEntity> queryAllMenus();
 }
