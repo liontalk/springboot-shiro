@@ -93,7 +93,7 @@ public class ManagerController {
     @ResponseBody
     public AjaxResult batchDeleteManagerInfo(@RequestParam(value = "ids[]") Integer[] ids) {
         if(ids==null || ids.length==0){
-            return AjaxResult.error(CodeMsg.DELETE_ERROR);
+            return AjaxResult.error(CodeMsg.DELETE_DATA_EMPTY);
         }
         List<Integer> list = Arrays.asList(ids);
         Integer result =  managerService.deleteManagerInfo(list);

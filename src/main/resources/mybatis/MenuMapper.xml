@@ -3,7 +3,7 @@
 
 <mapper namespace="cn.liontalk.springbootshiro.dao.MenuDao">
     <resultMap id="MenuEntityResultMap" type="cn.liontalk.springbootshiro.entity.MenuEntity">
-        <id column="menu_id" property="menuId"  jdbcType="INTEGER"/>
+        <id column="menu_id" property="menuId" jdbcType="INTEGER"/>
         <result column="parent_id" jdbcType="VARCHAR" property="parentId"/>
         <result column="name" jdbcType="VARCHAR" property="name"/>
         <result column="url" jdbcType="VARCHAR" property="url"/>
@@ -42,4 +42,15 @@
 		order by
 		m.order_num
 	</select>
+
+
+    <insert id="insertRoleAndMenuRel" parameterType="list">
+        insert into sys_role_menu (role_id,menu_id) values
+        <foreach collection="list" item="item" index="index" separator=",">
+            (
+            #{id},
+            #{item}
+            )
+        </foreach>
+    </insert>
 </mapper>

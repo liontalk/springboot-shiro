@@ -48,4 +48,10 @@ public class CodeMsg {
      * 批量删除操作错误
      */
     public static CodeMsg BATCH_DELETE_ERROR = new CodeMsg(500103, "批量删除操作错误");
+
+
+    /**
+     * 请选择要删除的数据
+     */
+    public static CodeMsg DELETE_DATA_EMPTY = new CodeMsg(500104, "请选择要删除的数据！");
 }

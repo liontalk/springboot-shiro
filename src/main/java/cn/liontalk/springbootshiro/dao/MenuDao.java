@@ -2,6 +2,7 @@ package cn.liontalk.springbootshiro.dao;
 
 import cn.liontalk.springbootshiro.entity.ManagerEntity;
 import cn.liontalk.springbootshiro.entity.MenuEntity;
+import cn.liontalk.springbootshiro.entity.RoleEntity;
 import io.swagger.models.auth.In;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -26,5 +27,12 @@ public interface MenuDao {
      * @return List<MenuEntity>
      */
     List<MenuEntity> queryMenuByUserId(@Param("userId") Integer userId);
+
+
+    /**
+     * 插入角色和管理员之前的关联关系
+     * @return
+     */
+    int insertRoleAndMenuRel(@Param("id") Long id,List<Long> list);
 
 }
