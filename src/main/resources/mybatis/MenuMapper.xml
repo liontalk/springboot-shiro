@@ -71,4 +71,17 @@
     <select id="queryAllMenus"  resultMap="MenuEntityResultMap">
         SELECT  <include refid="BaseColumnSql"/> FROM  sys_menu as menu
     </select>
+
+
+    <select id="queryManagerAndRoleMenuByUserId" resultMap="MenuEntityResultMap">
+        SELECT
+            d.*
+        FROM
+            sys_manager_role AS a
+        LEFT JOIN sys_role AS role ON a.role_id = role.role_id
+        LEFT JOIN sys_role_menu as c  on role.role_id = c.role_id
+        LEFT JOIN sys_menu as d on c.menu_id = d.menu_id
+        WHERE
+            a.user_id = #{userId}
+    </select>
 </mapper>

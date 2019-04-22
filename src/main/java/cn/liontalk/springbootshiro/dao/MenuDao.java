@@ -42,4 +42,12 @@ public interface MenuDao {
      */
     List<MenuEntity> queryAllMenus();
 
+
+    /**
+     * 查找管理员的所有权限菜单
+     * @param userId
+     * @return List<MenuEntity> 权限菜单
+     */
+    List<MenuEntity> queryManagerAndRoleMenuByUserId(@Param("userId") int userId);
+
 }

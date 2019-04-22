@@ -85,4 +85,15 @@
             `role_id` = #{roleId};
     </insert>
 
+
+    <select id="queryManagerRoleById" resultMap="BaseColumn">
+        SELECT
+            <include refid="BaseColumnSql"/>
+        FROM
+            sys_manager_role AS a
+        LEFT JOIN sys_role AS role ON a.role_id = role.role_id
+        WHERE
+            a.user_id = #{roleId}
+    </select>
+
 </mapper>

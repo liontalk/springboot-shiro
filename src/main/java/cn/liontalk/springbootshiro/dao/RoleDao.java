@@ -3,6 +3,7 @@ package cn.liontalk.springbootshiro.dao;
 import cn.liontalk.springbootshiro.entity.ManagerEntity;
 import cn.liontalk.springbootshiro.entity.RoleEntity;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import javax.management.relation.Role;
 import java.util.List;
@@ -55,4 +56,11 @@ public interface RoleDao {
      */
     int updateRoleInfo(RoleEntity roleEntity);
 
+
+    /**
+     * 查询管理员的角色
+     * @param roleId
+     * @return
+     */
+    List<RoleEntity> queryManagerRoleById(@Param("roleId") int roleId);
 }
