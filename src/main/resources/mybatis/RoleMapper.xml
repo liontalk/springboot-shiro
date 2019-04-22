@@ -22,7 +22,7 @@
         role.update_time
     </sql>
 
-    <select id="queryAllRoles" resultType="cn.liontalk.springbootshiro.entity.RoleEntity">
+    <select id="queryAllRoles" resultMap="BaseColumn">
         SELECT
         <include refid="BaseColumnSql"/>
         FROM sys_role as role
@@ -94,6 +94,13 @@
         LEFT JOIN sys_role AS role ON a.role_id = role.role_id
         WHERE
             a.user_id = #{roleId}
+    </select>
+
+
+    <select id="queryRoleAndMenuById" resultMap="BaseColumn">
+        SELECT
+        <include refid="BaseColumnSql"/>
+        FROM sys_role as role where role_id = #{roleId}
     </select>
 
 </mapper>

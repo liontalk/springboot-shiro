@@ -1,11 +1,11 @@
 var menuIds;
 $(function() {
-	getMenuTreeData();
+	//getMenuTreeData();
 	validateRule();
 });
 $.validator.setDefaults({
 	submitHandler : function() {
-		getAllSelectNodes();
+		//getAllSelectNodes();
 		update();
 	}
 });

@@ -11,6 +11,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -44,7 +45,7 @@ public class RoleController {
     @GetMapping(value = "/page")
     public String  toManagerPage() {
         logger.info("跳转到角色管理....");
-        return PREFIX + "user";
+        return PREFIX + "role";
     }
 
 
@@ -65,7 +66,7 @@ public class RoleController {
 
 
     @ApiOperation(value = "角色增加页面", notes = "角色增加页面")
-    @RequestMapping(value = "/add",method = RequestMethod.POST)
+    @RequestMapping(value = "/save",method = RequestMethod.POST)
     @ResponseBody
     public AjaxResult insertRoleInfo(RoleEntity entity) {
         roleService.insertRoleInfo(entity);
@@ -80,6 +81,15 @@ public class RoleController {
     public AjaxResult updateRoleInfo(RoleEntity entity) {
         roleService.updateRoleInfo(entity);
         return AjaxResult.success(null);
+    }
+
+
+    @ApiOperation(value = "角色更新页面", notes = "角色更新页面")
+    @RequestMapping(value = "/edit/{id}",method = RequestMethod.GET)
+    public String  updateRoleInfo(@PathVariable("id") Integer id, ModelMap modelMap) {
+        RoleEntity roleEntity = roleService.queryRoleAndMenuById(id);
+        modelMap.put("role",roleEntity);
+        return PREFIX + "edit";
     }
 
 

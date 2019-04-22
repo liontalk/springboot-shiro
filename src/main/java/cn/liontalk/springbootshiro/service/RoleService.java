@@ -53,4 +53,11 @@ public interface RoleService {
      */
     List<MenuEntity> queryManagerAndRoleMenuByUserId(int userId);
 
+
+    /**
+     * 查找角色下面的详情
+     * @param roleId
+     * @return
+     */
+    RoleEntity queryRoleAndMenuById(int roleId);
 }

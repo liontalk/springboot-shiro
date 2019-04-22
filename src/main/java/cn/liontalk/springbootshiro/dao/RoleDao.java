@@ -63,4 +63,12 @@ public interface RoleDao {
      * @return
      */
     List<RoleEntity> queryManagerRoleById(@Param("roleId") int roleId);
+
+
+    /**
+     * 查找角色详情
+     * @param roleId 角色id
+     * @return RoleEntity
+     */
+    RoleEntity queryRoleAndMenuById(@Param("roleId") int roleId);
 }

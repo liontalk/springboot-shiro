@@ -2,12 +2,13 @@
 
 var menuIds;
 $(function() {
-	getMenuTreeData();
+	//getMenuTreeData();
 	validateRule();
 });
 $.validator.setDefaults({
 	submitHandler : function() {
-		getAllSelectNodes();
+		//getAllSelectNodes();
+		alert(22);
 		save();
 	}
 });
@@ -45,24 +46,23 @@ function loadMenuTree(menuTree) {
 }
 
 function save() {
-	$('#menuIds').val(menuIds);
+	//$('#menuIds').val(menuIds);
 	var role = $('#signupForm').serialize();
 	$.ajax({
 		cache : true,
 		type : "POST",
-		url : "/sys/role/save",
+		url : "/role/save",
 		data : role, // 你的formid
-
 		async : false,
 		error : function(request) {
 			alert("Connection error");
 		},
 		success : function(data) {
+			console.log(data)
 			if (data.code == 0) {
 				parent.layer.msg("操作成功");
 				parent.reLoad();
 				var index = parent.layer.getFrameIndex(window.name); // 获取窗口索引
-
 				parent.layer.close(index);
 
 			} else {

@@ -1,6 +1,5 @@
 package cn.liontalk.springbootshiro.service.impl;
 
-import cn.liontalk.springbootshiro.dao.ManagerDao;
 import cn.liontalk.springbootshiro.dao.MenuDao;
 import cn.liontalk.springbootshiro.dao.RoleDao;
 import cn.liontalk.springbootshiro.entity.MenuEntity;
@@ -51,9 +50,9 @@ public class RoleServiceImpl implements RoleService {
     public void insertRoleInfo(RoleEntity entity) {
         int result =  roleDao.insertRoleInfo(entity);
         if(result>0){
-            long id = entity.getRoleId();
-            List<Long> list = entity.getMenuEntityList();
-            menuDao.insertRoleAndMenuRel(id,list);
+//            long id = entity.getRoleId();
+//            List<Long> list = entity.getMenuEntityList();
+//            menuDao.insertRoleAndMenuRel(id,list);
         }
     }
 
@@ -81,6 +80,11 @@ public class RoleServiceImpl implements RoleService {
     @Override
     public List<MenuEntity> queryManagerAndRoleMenuByUserId(int userId) {
         return menuDao.queryManagerAndRoleMenuByUserId(userId);
+    }
+
+    @Override
+    public RoleEntity queryRoleAndMenuById(int roleId) {
+        return roleDao.queryRoleAndMenuById(roleId);
     }
 
 

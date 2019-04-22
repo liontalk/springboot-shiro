@@ -97,10 +97,10 @@ function load(deptId) {
 							var d = '<a class="btn btn-warning btn-sm ' + s_remove_h + '" href="#" title="删除"  mce_href="#" onclick="remove(\''
 								+ row.userId
 								+ '\')"><i class="fa fa-remove"></i></a> ';
-							var f = '<a class="btn btn-success btn-sm ' + s_resetPwd_h + '" href="#" title="重置密码"  mce_href="#" onclick="resetPwd(\''
-								+ row.userId
-								+ '\')"><i class="fa fa-key"></i></a> ';
-							return e + d + f;
+							 var f = '<a class="btn btn-success btn-sm ' + s_resetPwd_h + '" href="#" title="重置密码"  mce_href="#" onclick="resetPwd(\''
+							 	+ row.userId
+							 	+ '\')"><i class="fa fa-key"></i></a> ';
+							return e + d +f ;
 						}
 					} ]
 			});

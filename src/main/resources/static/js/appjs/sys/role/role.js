@@ -1,4 +1,4 @@
-var prefix = "/sys/role";
+var prefix = "/role";
 $(function () {
     load();
 });
@@ -23,7 +23,7 @@ function load() {
                 pageNumber: 1, // 如果设置了分布，首页页码
                 search: true, // 是否显示搜索框
                 showColumns: true, // 是否显示内容下拉框（选择显示的列）
-                sidePagination: "client", // 设置在哪里进行分页，可选值为"client" 或者
+                sidePagination: "server", // 设置在哪里进行分页，可选值为"client" 或者
                 // "server"
                 // queryParams : queryParams,
                 // //请求服务器数据时，你可以通过重写参数的方式添加一些额外的参数，例如 toolbar 中的参数 如果
@@ -32,6 +32,24 @@ function load() {
                 // pageSize, pageNumber, searchText, sortName,
                 // sortOrder.
                 // 返回false将会终止请求
+                queryParams : function(params) {
+                    return {
+                        // 说明：传入后台的参数包括offset开始索引，limit步长，sort排序列，order：desc或者,以及所有列的键值对
+                        //limit : params.limit,
+                        //offset : params.offset,
+                        //name : $('#searchName').val(),
+                        //deptId : deptId
+                    };
+                },
+                onLoadSuccess: function(result)
+                {
+                    console.log("success");
+                    console.log(result);
+                },
+                onLoadError: function(err)
+                {
+                    console.log("error: "+err);
+                },
                 columns: [
                     { // 列配置项
                         // 数据类型，详细参数配置参见文档http://bootstrap-table.wenzhixin.net.cn/zh-cn/documentation/
@@ -45,6 +63,10 @@ function load() {
                     {
                         field: 'roleName',
                         title: '角色名'
+                    },
+                    {
+                        field: 'roleSign',
+                        title: '角色备注'
                     },
                     {
                         field: 'remark',
@@ -82,7 +104,7 @@ function add() {
         title: '添加角色',
         maxmin: true,
         shadeClose: false, // 点击遮罩关闭层
-        area: ['800px', '520px'],
+        area: ['600px', '420px'],
         content: prefix + '/add' // iframe的url
     });
 }
@@ -92,7 +114,7 @@ function remove(id) {
         btn: ['确定', '取消']
     }, function () {
         $.ajax({
-            url: prefix + "/remove",
+            url: prefix + "/delete",
             type: "post",
             data: {
                 'id': id
@@ -141,10 +163,10 @@ function batchRemove() {
             data: {
                 "ids": ids
             },
-            url: prefix + '/batchRemove',
+            url: prefix + '/batch/delete',
             success: function (r) {
                 if (r.code == 0) {
-                    layer.msg(r.msg);
+                    layer.msg("删除成功");
                     reLoad();
                 } else {
                     layer.msg(r.msg);
