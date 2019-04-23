@@ -2,6 +2,128 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="cn.liontalk.springbootshiro.dao.MenuDao">
+    <resultMap id="MenuEntityResultMap" type="cn.liontalk.springbootshiro.entity.MenuEntity">
+        <id column="menu_id" property="menuId" jdbcType="INTEGER"/>
+        <result column="parent_id" jdbcType="VARCHAR" property="parentId"/>
+        <result column="name" jdbcType="VARCHAR" property="name"/>
+        <result column="url" jdbcType="VARCHAR" property="url"/>
+        <result column="perms" jdbcType="INTEGER" property="perms"/>
+        <result column="type" jdbcType="VARCHAR" property="type"/>
+        <result column="icon" jdbcType="VARCHAR" property="icon"/>
+        <result column="order_num" jdbcType="INTEGER" property="orderNum"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
+    </resultMap>
 
+    <sql id="BaseColumnSql">
+      menu.menu_id,
+      menu.parent_id,
+      menu.name,
+      menu.url,
+      menu.perms,
+      menu.type,
+      menu.icon,
+      menu.order_num,
+      menu.create_time,
+      menu.update_time
+    </sql>
+
+
+    <select id="queryUserPerms" resultType="java.lang.String">
+        SELECT DISTINCT
+            m.perms
+        FROM
+            sys_menu m
+        LEFT JOIN sys_role_menu rm ON m.menu_id = rm.menu_id
+        LEFT JOIN sys_manager_role ur ON rm.role_id = ur.role_id
+        WHERE
+            ur.user_id = #{userId}
+    </select>
+
+
+    <select id="queryMenuByUserId" resultMap="MenuEntityResultMap">
+		select distinct
+		m.menu_id , parent_id, name, url,
+		perms,`type`,icon,order_num,create_time, update_time
+		from sys_menu m
+		left
+		join sys_role_menu rm on m.menu_id = rm.menu_id left join
+		sys_manager_role ur
+		on rm.role_id =ur.role_id where ur.user_id = #{userId}
+		and
+		m.type in(0,1)
+		order by
+		m.order_num
+	</select>
+
+
+    <insert id="insertRoleAndMenuRel" parameterType="list">
+        insert into sys_role_menu (role_id,menu_id) values
+        <foreach collection="list" item="item" index="index" separator=",">
+            (
+            #{id},
+            #{item}
+            )
+        </foreach>
+    </insert>
+
+
+    <select id="queryAllMenus"  resultMap="MenuEntityResultMap">
+        SELECT  <include refid="BaseColumnSql"/> FROM  sys_menu as menu
+    </select>
+
+
+    <select id="queryManagerAndRoleMenuByUserId" resultMap="MenuEntityResultMap">
+        SELECT
+            d.*
+        FROM
+            sys_manager_role AS a
+        LEFT JOIN sys_role AS role ON a.role_id = role.role_id
+        LEFT JOIN sys_role_menu as c  on role.role_id = c.role_id
+        LEFT JOIN sys_menu as d on c.menu_id = d.menu_id
+        WHERE
+            a.user_id = #{userId}
+    </select>
+
+
+    <select id="list" resultMap="MenuEntityResultMap">
+        select
+        `menu_id`,`parent_id`,`name`,`url`,`perms`,`type`,`icon`,`order_num`,`create_time`,`update_time`
+        from sys_menu
+        <where>
+            <if test="menuId != null and menuId != ''"> and menu_id = #{menuId} </if>
+            <if test="parentId != null and parentId != ''"> and parent_id = #{parentId} </if>
+            <if test="name != null and name != ''"> and name = #{name} </if>
+            <if test="url != null and url != ''"> and url = #{url} </if>
+            <if test="perms != null and perms != ''"> and perms = #{perms} </if>
+            <if test="type != null and type != ''"> and type = #{type} </if>
+            <if test="icon != null and icon != ''"> and icon = #{icon} </if>
+            <if test="orderNum != null and orderNum != ''"> and order_num = #{orderNum} </if>
+            <if test="createTime != null and createTime != ''"> and create_time = #{createTime} </if>
+            <if test="updateTime != null and updateTime != ''"> and updateTime = #{updateTime} </if>
+        </where>
+        <choose>
+            <when test="sort != null and sort.trim() != ''">
+                order by ${sort} ${order}
+            </when>
+            <otherwise>
+                order by menu_id desc
+            </otherwise>
+        </choose>
+        <if test="offset != null and limit != null">
+            limit #{offset}, #{limit}
+        </if>
+    </select>
+
+
+    <select id="listMenuIdByRoleId" resultType="java.lang.Long">
+        SELECT
+            b.menu_id
+        FROM
+            `sys_role` AS role
+        LEFT JOIN sys_role_menu AS b ON role.role_id = b.role_id
+        WHERE
+            role.role_id = #{roleId};
+    </select>
 
 </mapper>

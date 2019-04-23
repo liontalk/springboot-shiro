@@ -2,7 +2,112 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="cn.liontalk.springbootshiro.dao.RoleDao">
+    <resultMap id="BaseColumn" type="cn.liontalk.springbootshiro.entity.RoleEntity">
+        <id property="roleId" column="role_id" jdbcType="INTEGER"/>
+        <result column="role_name" jdbcType="VARCHAR" property="roleName"/>
+        <result column="role_sign" jdbcType="VARCHAR" property="roleSign"/>
+        <result column="remark" jdbcType="VARCHAR" property="remark"/>
+        <result column="user_id_create" jdbcType="INTEGER" property="userIdCreate"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
+        <collection property="menuEntityList" ofType="long" select="getRoleMenuRel" column="role_id"/>
+    </resultMap>
+
+    <sql id="BaseColumnSql">
+        role.role_id,
+        role.role_name,
+        role.role_sign,
+        role.remark,
+        role.user_id_create,
+        role.create_time,
+        role.update_time
+    </sql>
+
+    <select id="queryAllRoles" resultMap="BaseColumn">
+        SELECT
+        <include refid="BaseColumnSql"/>
+        FROM sys_role as role
+    </select>
 
 
+    <delete id="deleteRoleInfo" parameterType="list">
+        DELETE FROM sys_role WHERE role_id in
+        <foreach collection="list" item="item" separator="," open="(" close=")">
+            #{item}
+        </foreach>
+    </delete>
+
+
+    <delete id="deleteRoleAndMenuRel" parameterType="list">
+        DELETE FROM sys_role_menu WHERE role_id in
+        <foreach collection="list" item="item" separator="," open="(" close=")">
+            #{item}
+        </foreach>
+    </delete>
+
+
+    <delete id="deleteRoleAndManagerRel" parameterType="list">
+        DELETE FROM sys_manager_role WHERE role_id in
+        <foreach collection="list" item="item" separator="," open="(" close=")">
+            #{item}
+        </foreach>
+    </delete>
+
+
+    <insert id="insertRoleInfo" parameterType="cn.liontalk.springbootshiro.entity.RoleEntity" keyProperty="roleId" useGeneratedKeys="true">
+        INSERT INTO `sys_role` (
+            `role_name`,
+            `role_sign`,
+            `remark`,
+            `user_id_create`,
+            `create_time`,
+            `update_time`
+        )
+        VALUES
+            (
+                #{roleName},
+                #{roleSign},
+                #{remark},
+                #{userIdCreate},
+                now(),
+                now()
+            );
+    </insert>
+
+
+    <insert id="updateRoleInfo" parameterType="cn.liontalk.springbootshiro.entity.RoleEntity">
+        UPDATE `sys_role`
+        SET
+         `role_name` = #{roleName},
+         `role_sign` = #{roleSign},
+         `remark` = #{remark},
+         `update_time` = now()
+        WHERE
+            `role_id` = #{roleId};
+    </insert>
+
+
+    <select id="queryManagerRoleById" resultMap="BaseColumn">
+        SELECT
+            <include refid="BaseColumnSql"/>
+        FROM
+            sys_manager_role AS a
+        LEFT JOIN sys_role AS role ON a.role_id = role.role_id
+        WHERE
+            a.user_id = #{roleId}
+    </select>
+
+
+    <select id="queryRoleAndMenuById" resultMap="BaseColumn">
+        SELECT
+        <include refid="BaseColumnSql"/>
+        FROM sys_role as role where role_id = #{roleId}
+    </select>
+
+    <select id="getRoleMenuRel" resultType="java.lang.Long">
+        SELECT b.menu_id FROM `sys_role` as role
+        LEFT JOIN sys_role_menu as b on role.role_id = b.role_id
+        where role.role_id = #{roleId};
+    </select>
 
 </mapper>

@@ -35,4 +35,5 @@ public interface ManagerService {
      * @param managerEntity
      */
     void updateManager(ManagerEntity  managerEntity);
+
 }

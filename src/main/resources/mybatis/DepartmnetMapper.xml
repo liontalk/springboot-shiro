@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="cn.liontalk.springbootshiro.dao.DepartmentDao">
+    <resultMap id="DeptResultMap" type="cn.liontalk.springbootshiro.entity.DepartEntity">
+        <id column="dept_id" property="deptId" jdbcType="INTEGER"/>
+        <result column="parent_id" property="parentId" jdbcType="INTEGER"/>
+        <result column="name" jdbcType="VARCHAR" property="name"/>
+        <result column="order_num" jdbcType="INTEGER" property="orderNum"/>
+        <result column="del_flag" jdbcType="VARCHAR" property="delFlag"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
+    </resultMap>
+
+    <sql id="BaseColumnSql">
+      dept.dept_id,
+      dept.parent_id,
+      dept.name,
+      dept.order_num,
+      dept.del_flag,
+      dept.create_time,
+      dept.update_time
+    </sql>
+
+    <select id="queryDeptById" resultMap="DeptResultMap">
+        SELECT <include refid="BaseColumnSql"/> from sys_dept as dept where dept.dept_id = #{deptId}
+    </select>
+
+    <delete id="delete">
+        update sys_dept set del_flag = -1 where dept_id = #{deptId}
+    </delete>
+
+
+    <insert id="insert" parameterType="cn.liontalk.springbootshiro.entity.DepartEntity">
+        INSERT INTO `sys_dept` (
+            `parent_id`,
+            `name`,
+            `order_num`,
+            `del_flag`,
+            create_time,
+            update_time
+        )
+        VALUES
+            (#{parentId},
+             #{name},
+             #{orderNum},
+              #{delFlag},
+              now(),
+              now()
+            );
+    </insert>
+
+
+    <update id="update" parameterType="cn.liontalk.springbootshiro.entity.DepartEntity">
+        UPDATE `sys_dept`
+        SET
+        <if test="parentId!=null">
+            `parent_id` = #{parentId},
+        </if>
+
+        <if test="parentId!=null">
+            `name` = #{name},
+        </if>
+
+        <if test="parentId!=null">
+            `order_num` = #{orderNum},
+        </if>
+
+        <if test="parentId!=null">
+            `del_flag` = #{delStatus}
+        </if>
+        create_time = now(),
+        update_time = now()
+        WHERE
+        `dept_id` = #{depeId};
+    </update>
+
+    <select id="queryAllDepartment" resultMap="DeptResultMap">
+        SELECT <include refid="BaseColumnSql"/> from sys_dept as dept
+    </select>
+
+</mapper>
