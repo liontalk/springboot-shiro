@@ -36,4 +36,12 @@ public interface MenuService {
      * @return
      */
     Tree<MenuEntity> getTree();
+
+
+    /**
+     * 根据角色id获取菜单树
+     * @param roleId
+     * @return
+     */
+    Tree<MenuEntity> getTreeByRoleId(int roleId);
 }

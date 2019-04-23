@@ -55,8 +55,16 @@ public interface MenuDao {
     /**
      * 获取菜单树
      * @param map
-     * @return
+     * @return  List<MenuEntity>
      */
     List<MenuEntity> list(Map<String, Object> map);
+
+
+    /**
+     * 获取角色对应的菜单权限
+     * @param roleId
+     * @return
+     */
+    List<Long> listMenuIdByRoleId(@Param("roleId")int  roleId);
 
 }

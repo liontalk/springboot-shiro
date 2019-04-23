@@ -82,4 +82,37 @@ public class MenuServiceImpl implements MenuService {
         Tree<MenuEntity> tree = BuildTreeUtils.build(trees);
         return tree;
     }
+
+    @Override
+    public Tree<MenuEntity> getTreeByRoleId(int roleId) {
+        // 根据roleId查询权限
+        List<MenuEntity> menus = menuDao.list(new HashMap<String, Object>(16));
+        List<Long> menuIds = menuDao.listMenuIdByRoleId(roleId);
+        List<Long> temp = menuIds;
+        for (MenuEntity menu : menus) {
+            if (temp.contains(menu.getParentId())) {
+                menuIds.remove(menu.getParentId());
+            }
+        }
+        List<Tree<MenuEntity>> trees = new ArrayList<Tree<MenuEntity>>();
+        List<MenuEntity> menuDOs = menuDao.list(new HashMap<String, Object>(16));
+        for (MenuEntity sysMenuDO : menuDOs) {
+            Tree<MenuEntity> tree = new Tree<MenuEntity>();
+            tree.setId(sysMenuDO.getMenuId().toString());
+            tree.setParentId(sysMenuDO.getParentId().toString());
+            tree.setText(sysMenuDO.getName());
+            Map<String, Object> state = new HashMap<>(16);
+            Long menuId = sysMenuDO.getMenuId();
+            if (menuIds.contains(menuId)) {
+                state.put("selected", true);
+            } else {
+                state.put("selected", false);
+            }
+            tree.setState(state);
+            trees.add(tree);
+        }
+        // 默认顶级菜单为０，根据数据库实际情况调整
+        Tree<MenuEntity> tree = BuildTreeUtils.build(trees);
+        return tree;
+    }
 }

@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -57,11 +58,21 @@ public class MenuController {
 
 
 
+    @ApiOperation(value = "获取整个菜单树", notes = "获取整个菜单树")
     @GetMapping("/tree")
     @ResponseBody
     public Tree<MenuEntity> tree() {
         logger.info("get menu tree start!");
        return  menuService.getTree();
+    }
+
+
+    @ApiOperation(value = "根据角色获取角色拥有的菜单", notes = "根据角色获取角色拥有的菜单")
+    @GetMapping("/tree/{roleId}")
+    @ResponseBody
+    public Tree<MenuEntity> tree(@PathVariable("roleId") Integer roleId) {
+        logger.info("get menu tree start!");
+        return  menuService.getTreeByRoleId(roleId);
     }
 
 

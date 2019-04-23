@@ -10,6 +10,7 @@
         <result column="user_id_create" jdbcType="INTEGER" property="userIdCreate"/>
         <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
         <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
+        <collection property="menuEntityList" ofType="long" select="getRoleMenuRel" column="role_id"/>
     </resultMap>
 
     <sql id="BaseColumnSql">
@@ -101,6 +102,12 @@
         SELECT
         <include refid="BaseColumnSql"/>
         FROM sys_role as role where role_id = #{roleId}
+    </select>
+
+    <select id="getRoleMenuRel" resultType="java.lang.Long">
+        SELECT b.menu_id FROM `sys_role` as role
+        LEFT JOIN sys_role_menu as b on role.role_id = b.role_id
+        where role.role_id = #{roleId};
     </select>
 
 </mapper>

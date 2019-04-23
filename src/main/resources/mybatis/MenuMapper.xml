@@ -115,4 +115,15 @@
         </if>
     </select>
 
+
+    <select id="listMenuIdByRoleId" resultType="java.lang.Long">
+        SELECT
+            b.menu_id
+        FROM
+            `sys_role` AS role
+        LEFT JOIN sys_role_menu AS b ON role.role_id = b.role_id
+        WHERE
+            role.role_id = #{roleId};
+    </select>
+
 </mapper>

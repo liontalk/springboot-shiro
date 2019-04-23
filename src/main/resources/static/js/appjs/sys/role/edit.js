@@ -1,11 +1,11 @@
 var menuIds;
 $(function() {
-	//getMenuTreeData();
+	getMenuTreeData();
 	validateRule();
 });
 $.validator.setDefaults({
 	submitHandler : function() {
-		//getAllSelectNodes();
+		getAllSelectNodes();
 		update();
 	}
 });
@@ -36,19 +36,19 @@ function getMenuTreeData() {
 	var roleId = $('#roleId').val();
 	$.ajax({
 		type : "GET",
-		url : "/sys/menu/tree/" + roleId,
+		url : "/menu/tree/" + roleId,
 		success : function(data) {
 			loadMenuTree(data);
 		}
 	});
 }
 function update() {
-	$('#menuIds').val(menuIds);
+	$('#menuEntityList').val(menuIds);
 	var role = $('#signupForm').serialize();
 	$.ajax({
 		cache : true,
 		type : "POST",
-		url : "/sys/role/update",
+		url : "/role/update",
 		data : role, // 你的formid
 		async : false,
 		error : function(request) {

@@ -62,10 +62,14 @@ public class RoleController {
 
 
     @ApiOperation(value = "角色更新页面", notes = "角色更新页面")
-    @GetMapping(value = "/update")
-    public String  toRoleUpdatePage() {
+    @GetMapping(value = "/edit/{roleId}")
+    public String  toRoleUpdatePage(@PathVariable("roleId") Integer roleId,ModelMap modelMap) {
         logger.info("跳转到角色更新....");
-        return PREFIX + "update";
+        RoleEntity roleEntity = roleService.queryRoleAndMenuById(roleId);
+        if(null!=roleEntity){
+            modelMap.put("role",roleEntity);
+        }
+        return PREFIX + "edit";
     }
 
 
@@ -92,13 +96,13 @@ public class RoleController {
     }
 
 
-    @ApiOperation(value = "角色更新页面", notes = "角色更新页面")
-    @RequestMapping(value = "/edit/{id}",method = RequestMethod.GET)
-    public String  updateRoleInfo(@PathVariable("id") Integer id, ModelMap modelMap) {
-        RoleEntity roleEntity = roleService.queryRoleAndMenuById(id);
-        modelMap.put("role",roleEntity);
-        return PREFIX + "edit";
-    }
+//    @ApiOperation(value = "角色更新页面", notes = "角色更新页面")
+//    @RequestMapping(value = "/edit/{id}",method = RequestMethod.GET)
+//    public String  updateRoleInfo(@PathVariable("id") Integer id, ModelMap modelMap) {
+//        RoleEntity roleEntity = roleService.queryRoleAndMenuById(id);
+//        modelMap.put("role",roleEntity);
+//        return PREFIX + "edit";
+//    }
 
 
 
