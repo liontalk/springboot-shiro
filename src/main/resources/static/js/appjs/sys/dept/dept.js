@@ -1,5 +1,5 @@
 
-var prefix = "/system/sysDept"
+var prefix = "/department/"
 $(function() {
 	load();
 });
@@ -19,6 +19,7 @@ function load() {
 				bordered : true, // 是否显示边框
 				expandAll : false, // 是否全部展开
 				// toolbar : '#exampleToolbar',
+				sidePagination : "server", // 设置在哪里进行分页，可选值为"client" 或者
 				columns : [
 					{
 						title : '编号',
@@ -69,9 +70,6 @@ function load() {
 							var d = '<a class="btn btn-warning btn-sm ' + s_remove_h + '" href="#" title="删除"  mce_href="#" onclick="removeone(\''
 								+ item.deptId
 								+ '\')"><i class="fa fa-remove"></i></a> ';
-							var f = '<a class="btn btn-success btn-sm＂ href="#" title="备用"  mce_href="#" onclick="resetPwd(\''
-								+ item.deptId
-								+ '\')"><i class="fa fa-key"></i></a> ';
 							return e + a + d;
 						}
 					} ]
@@ -97,7 +95,7 @@ function edit(id) {
 		maxmin : true,
 		shadeClose : false, // 点击遮罩关闭层
 		area : [ '800px', '520px' ],
-		content : prefix + '/edit/' + id // iframe的url
+		content : prefix + '/edit/' + id
 	});
 }
 function removeone(id) {
@@ -105,14 +103,11 @@ function removeone(id) {
 		btn : [ '确定', '取消' ]
 	}, function() {
 		$.ajax({
-			url : prefix + "/remove",
+			url : prefix + "/delete/" + id,
 			type : "post",
-			data : {
-				'deptId' : id
-			},
 			success : function(r) {
 				if (r.code == 0) {
-					layer.msg(r.msg);
+					layer.msg("操作成功!");
 					reLoad();
 				} else {
 					layer.msg(r.msg);
@@ -122,8 +117,7 @@ function removeone(id) {
 	})
 }
 
-function resetPwd(id) {
-}
+
 function batchRemove() {
 	var rows = $('#exampleTable').bootstrapTable('getSelections'); // 返回所有选择的行，当没有选择的记录时，返回一个空数组
 	if (rows.length == 0) {

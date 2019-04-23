@@ -7,7 +7,6 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.AutoConfigureOrder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -28,7 +27,7 @@ import java.util.List;
 @Api(value = "部门信息")
 public class DepartmentController {
 
-    private static final String PREFIX = "/dept/";
+    private static final String PREFIX = "system/dept/";
 
     @Autowired
     private DepartmentService departmentService;
@@ -37,15 +36,16 @@ public class DepartmentController {
     @RequestMapping(value ="/page")
     @ApiOperation(value = "跳转到部门信息页面",notes = "跳转到部门信息页面")
     public String toDepartmentPage(){
-        return "dept";
+        return  PREFIX + "dept";
     }
 
     @ApiOperation(value = "获取部门信息列表",notes = "获取部门信息列表")
     @RequestMapping(value = "/list",method = RequestMethod.GET)
     @ResponseBody
-    public AjaxResult getAllDepartList(){
+    public List<DepartEntity> getAllDepartList(){
         List<DepartEntity> list = departmentService.queryAllDepartment();
-        return AjaxResult.success(list);
+       // return AjaxResult.success(list);
+        return list;
     }
 
 
