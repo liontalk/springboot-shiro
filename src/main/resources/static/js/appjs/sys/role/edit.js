@@ -56,7 +56,7 @@ function update() {
 		},
 		success : function(r) {
 			if (r.code == 0) {
-				parent.layer.msg(r.msg);
+				parent.layer.msg("操作成功!");
 				parent.reLoad();
 				var index = parent.layer.getFrameIndex(window.name); // 获取窗口索引
 				parent.layer.close(index);
