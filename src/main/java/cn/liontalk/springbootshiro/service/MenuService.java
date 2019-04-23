@@ -29,4 +29,11 @@ public interface MenuService {
      * @return
      */
     List<MenuEntity> queryAllMenus();
+
+
+    /**
+     * 获得菜单树
+     * @return
+     */
+    Tree<MenuEntity> getTree();
 }

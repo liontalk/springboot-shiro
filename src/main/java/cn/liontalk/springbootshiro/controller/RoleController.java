@@ -2,11 +2,14 @@ package cn.liontalk.springbootshiro.controller;
 
 import cn.liontalk.springbootshiro.common.result.AjaxResult;
 import cn.liontalk.springbootshiro.common.result.CodeMsg;
+import cn.liontalk.springbootshiro.constant.SysConstant;
+import cn.liontalk.springbootshiro.entity.ManagerEntity;
 import cn.liontalk.springbootshiro.entity.RoleEntity;
 import cn.liontalk.springbootshiro.service.RoleService;
 import cn.liontalk.springbootshiro.util.PageUtils;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import org.apache.tomcat.util.http.parser.HttpParser;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +17,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -68,7 +72,11 @@ public class RoleController {
     @ApiOperation(value = "角色增加页面", notes = "角色增加页面")
     @RequestMapping(value = "/save",method = RequestMethod.POST)
     @ResponseBody
-    public AjaxResult insertRoleInfo(RoleEntity entity) {
+    public AjaxResult insertRoleInfo(RoleEntity entity, HttpSession session) {
+        ManagerEntity managerEntity = (ManagerEntity) session.getAttribute(SysConstant.MANAGER);
+        if(null!=managerEntity){
+            entity.setUserIdCreate(managerEntity.getUserId().longValue());
+        }
         roleService.insertRoleInfo(entity);
         return AjaxResult.success(null);
     }

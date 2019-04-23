@@ -50,9 +50,9 @@ public class RoleServiceImpl implements RoleService {
     public void insertRoleInfo(RoleEntity entity) {
         int result =  roleDao.insertRoleInfo(entity);
         if(result>0){
-//            long id = entity.getRoleId();
-//            List<Long> list = entity.getMenuEntityList();
-//            menuDao.insertRoleAndMenuRel(id,list);
+            long id = entity.getRoleId();
+            List<Long> list = entity.getMenuEntityList();
+            menuDao.insertRoleAndMenuRel(id,list);
         }
     }
 

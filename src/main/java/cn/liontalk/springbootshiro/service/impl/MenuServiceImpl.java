@@ -66,4 +66,20 @@ public class MenuServiceImpl implements MenuService {
     public List<MenuEntity> queryAllMenus() {
         return menuDao.queryAllMenus();
     }
+
+    @Override
+    public Tree<MenuEntity> getTree() {
+        List<Tree<MenuEntity>> trees = new ArrayList<Tree<MenuEntity>>();
+        List<MenuEntity> menuDOs = menuDao.list(new HashMap<>(16));
+        for (MenuEntity sysMenuDO : menuDOs) {
+            Tree<MenuEntity> tree = new Tree<MenuEntity>();
+            tree.setId(sysMenuDO.getMenuId().toString());
+            tree.setParentId(sysMenuDO.getParentId().toString());
+            tree.setText(sysMenuDO.getName());
+            trees.add(tree);
+        }
+        // 默认顶级菜单为０，根据数据库实际情况调整
+        Tree<MenuEntity> tree = BuildTreeUtils.build(trees);
+        return tree;
+    }
 }

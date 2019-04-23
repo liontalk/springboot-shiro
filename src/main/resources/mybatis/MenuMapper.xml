@@ -84,4 +84,35 @@
         WHERE
             a.user_id = #{userId}
     </select>
+
+
+    <select id="list" resultMap="MenuEntityResultMap">
+        select
+        `menu_id`,`parent_id`,`name`,`url`,`perms`,`type`,`icon`,`order_num`,`create_time`,`update_time`
+        from sys_menu
+        <where>
+            <if test="menuId != null and menuId != ''"> and menu_id = #{menuId} </if>
+            <if test="parentId != null and parentId != ''"> and parent_id = #{parentId} </if>
+            <if test="name != null and name != ''"> and name = #{name} </if>
+            <if test="url != null and url != ''"> and url = #{url} </if>
+            <if test="perms != null and perms != ''"> and perms = #{perms} </if>
+            <if test="type != null and type != ''"> and type = #{type} </if>
+            <if test="icon != null and icon != ''"> and icon = #{icon} </if>
+            <if test="orderNum != null and orderNum != ''"> and order_num = #{orderNum} </if>
+            <if test="createTime != null and createTime != ''"> and create_time = #{createTime} </if>
+            <if test="updateTime != null and updateTime != ''"> and updateTime = #{updateTime} </if>
+        </where>
+        <choose>
+            <when test="sort != null and sort.trim() != ''">
+                order by ${sort} ${order}
+            </when>
+            <otherwise>
+                order by menu_id desc
+            </otherwise>
+        </choose>
+        <if test="offset != null and limit != null">
+            limit #{offset}, #{limit}
+        </if>
+    </select>
+
 </mapper>

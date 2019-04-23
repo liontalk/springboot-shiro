@@ -3,6 +3,7 @@ package cn.liontalk.springbootshiro.controller;
 import cn.liontalk.springbootshiro.common.domain.Tree;
 import cn.liontalk.springbootshiro.common.result.AjaxResult;
 import cn.liontalk.springbootshiro.common.result.CodeMsg;
+import cn.liontalk.springbootshiro.constant.SysConstant;
 import cn.liontalk.springbootshiro.entity.ManagerEntity;
 import cn.liontalk.springbootshiro.entity.MenuEntity;
 import cn.liontalk.springbootshiro.service.MenuService;
@@ -21,6 +22,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 @Controller
@@ -54,7 +57,7 @@ public class IndexController {
     @PostMapping(value = "/login")
     @ResponseBody
     public AjaxResult managerLogin(@RequestParam("username") String username,
-                                   @RequestParam("password") String password) {
+                                   @RequestParam("password") String password, HttpSession session) {
 
         password = MD5Utils.encrypt(username, password);
         UsernamePasswordToken token = new UsernamePasswordToken(username, password);
@@ -65,6 +68,9 @@ public class IndexController {
             logger.error("登录失败! " + e.getMessage());
             return AjaxResult.success(CodeMsg.BIND_ERROR);
         }
+        ManagerEntity managerEntity = ShiroUtils.getManagerInfo();
+        logger.info("manager:" + managerEntity);
+        session.setAttribute(SysConstant.MANAGER,managerEntity);
         return AjaxResult.success(CodeMsg.SUCCESS);
     }
 

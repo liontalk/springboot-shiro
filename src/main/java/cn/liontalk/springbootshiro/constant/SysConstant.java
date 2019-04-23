@@ -24,4 +24,7 @@ public class SysConstant {
      * 管理员状态是正常状态
      */
     public static final Integer NORMAL_STATUS = 1;
+
+
+    public static final String MANAGER = "MANAGER";
 }

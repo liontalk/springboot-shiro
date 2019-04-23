@@ -8,6 +8,7 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
+import java.util.Map;
 
 @Mapper
 public interface MenuDao {
@@ -49,5 +50,13 @@ public interface MenuDao {
      * @return List<MenuEntity> 权限菜单
      */
     List<MenuEntity> queryManagerAndRoleMenuByUserId(@Param("userId") int userId);
+
+
+    /**
+     * 获取菜单树
+     * @param map
+     * @return
+     */
+    List<MenuEntity> list(Map<String, Object> map);
 
 }

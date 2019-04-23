@@ -1,5 +1,6 @@
 package cn.liontalk.springbootshiro.controller;
 
+import cn.liontalk.springbootshiro.common.domain.Tree;
 import cn.liontalk.springbootshiro.entity.MenuEntity;
 import cn.liontalk.springbootshiro.entity.RoleEntity;
 import cn.liontalk.springbootshiro.service.MenuService;
@@ -53,6 +54,16 @@ public class MenuController {
         PageUtils pageUtil = new PageUtils(list, list.size());
         return pageUtil;
     }
+
+
+
+    @GetMapping("/tree")
+    @ResponseBody
+    public Tree<MenuEntity> tree() {
+        logger.info("get menu tree start!");
+       return  menuService.getTree();
+    }
+
 
 
 }
