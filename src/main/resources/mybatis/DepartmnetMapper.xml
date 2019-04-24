@@ -67,12 +67,12 @@
         </if>
 
         <if test="parentId!=null">
-            `del_flag` = #{delStatus}
+            `del_flag` = #{delFlag},
         </if>
         create_time = now(),
         update_time = now()
         WHERE
-        `dept_id` = #{depeId};
+         dept_id = #{deptId};
     </update>
 
     <select id="queryAllDepartment" resultMap="DeptResultMap">

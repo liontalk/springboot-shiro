@@ -3,6 +3,11 @@ package cn.liontalk.springbootshiro.service.impl;
 import cn.liontalk.springbootshiro.dao.DepartmentDao;
 import cn.liontalk.springbootshiro.entity.DepartEntity;
 import cn.liontalk.springbootshiro.service.DepartmentService;
+import cn.liontalk.springbootshiro.vo.DepartmentVO;
+import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,6 +21,8 @@ import java.util.List;
  */
 @Service
 public class DepartmentServiceImpl implements DepartmentService {
+
+    private static final Logger logger = LoggerFactory.getLogger(DepartmentServiceImpl.class);
 
     @Autowired
     DepartmentDao departmentDao;
@@ -42,7 +49,18 @@ public class DepartmentServiceImpl implements DepartmentService {
     }
 
     @Override
-    public DepartEntity queryDeptById(int deptId) {
-        return departmentDao.queryDeptById(deptId);
+    public DepartmentVO queryDeptById(int deptId) {
+        DepartmentVO departmentVO = new DepartmentVO();
+        DepartEntity departEntity = departmentDao.queryDeptById(deptId);
+        if (null != departEntity ) {
+            if(departEntity.getParentId()!=0){
+                departmentVO.setParentName(departEntity.getName());
+                BeanUtils.copyProperties(departEntity, departmentVO);
+            }else{
+                BeanUtils.copyProperties(departEntity, departmentVO);
+            }
+        }
+        logger.info("获得departmentVo:" + departmentVO);
+        return departmentVO;
     }
 }

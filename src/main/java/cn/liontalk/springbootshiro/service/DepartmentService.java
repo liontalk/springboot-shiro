@@ -1,6 +1,7 @@
 package cn.liontalk.springbootshiro.service;
 
 import cn.liontalk.springbootshiro.entity.DepartEntity;
+import cn.liontalk.springbootshiro.vo.DepartmentVO;
 
 import java.util.List;
 
@@ -48,5 +49,5 @@ public interface DepartmentService {
      * @param deptId
      * @return
      */
-    DepartEntity queryDeptById(int deptId);
+    DepartmentVO queryDeptById(int deptId);
 }

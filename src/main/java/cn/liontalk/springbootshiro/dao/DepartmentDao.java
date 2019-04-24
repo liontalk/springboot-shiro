@@ -53,4 +53,12 @@ public interface DepartmentDao {
      */
    DepartEntity queryDeptById(@Param("deptId") Integer deptId);
 
+
+    /**
+     * 查找子部门的上一级部门
+     * @param deptId
+     * @return
+     */
+
+
 }

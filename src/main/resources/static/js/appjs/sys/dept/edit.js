@@ -11,8 +11,8 @@ function update() {
 	$.ajax({
 		cache : true,
 		type : "POST",
-		url : "/system/sysDept/update",
-		data : $('#signupForm').serialize(),// 你的formid
+		url : "/department/update",
+		data : $('#signupForm').serialize(),//
 		async : false,
 		error : function(request) {
 			parent.layer.alert("Connection error");
