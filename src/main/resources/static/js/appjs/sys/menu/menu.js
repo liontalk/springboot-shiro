@@ -1,4 +1,4 @@
-var prefix = "/sys/menu"
+var prefix = "/menu"
 $(document).ready(function () {
     load();
 });
@@ -18,6 +18,7 @@ var load = function () {
                 expandAll: false, // 是否全部展开
                 // toolbar : '#exampleToolbar',
                 columns: [
+
                     {
                         title: '编号',
                         field: 'menuId',
@@ -113,7 +114,7 @@ function add(pId) {
         maxmin: true,
         shadeClose: false, // 点击遮罩关闭层
         area: ['800px', '520px'],
-        content: prefix + '/add/' + pId // iframe的url
+        content: prefix + '/add/' + pId
     });
 }
 
@@ -122,11 +123,8 @@ function remove(id) {
         btn: ['确定', '取消']
     }, function () {
         $.ajax({
-            url: prefix + "/remove",
+            url: prefix + "/delete/" + id ,
             type: "post",
-            data: {
-                'id': id
-            },
             success: function (data) {
                 if (data.code == 0) {
                     layer.msg("删除成功");
@@ -148,9 +146,4 @@ function edit(id) {
         area: ['800px', '520px'],
         content: prefix + '/edit/' + id // iframe的url
     });
-}
-
-function batchRemove() {
-    // var rows = $('#exampleTable').bootstrapTable('getSelections');
-
 }

@@ -3,6 +3,7 @@ package cn.liontalk.springbootshiro.service;
 
 import cn.liontalk.springbootshiro.common.domain.Tree;
 import cn.liontalk.springbootshiro.entity.MenuEntity;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.List;
 import java.util.Set;
@@ -44,4 +45,12 @@ public interface MenuService {
      * @return
      */
     Tree<MenuEntity> getTreeByRoleId(int roleId);
+
+
+    /**
+     * 删除角色
+     * @param list 菜单id
+     * @return 删除行数
+     */
+    int menuDelete(List<Integer> list);
 }

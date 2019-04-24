@@ -54,4 +54,10 @@ public class CodeMsg {
      * 请选择要删除的数据
      */
     public static CodeMsg DELETE_DATA_EMPTY = new CodeMsg(500104, "请选择要删除的数据！");
+
+
+    /**
+     *  参数缺失
+     */
+    public static CodeMsg PARAM_EMPTY = new CodeMsg(500105, "参数缺失");
 }

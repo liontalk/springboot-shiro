@@ -126,4 +126,13 @@
             role.role_id = #{roleId};
     </select>
 
+
+    <delete id="delete" parameterType="list">
+        DELETE FROM sys_menu where menu_id
+        in
+        <foreach collection="list" close=")" open="(" separator="," item="item">
+            #{item}
+        </foreach>
+    </delete>
+
 </mapper>

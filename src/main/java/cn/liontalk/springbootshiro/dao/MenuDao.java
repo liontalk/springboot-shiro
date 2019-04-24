@@ -67,4 +67,12 @@ public interface MenuDao {
      */
     List<Long> listMenuIdByRoleId(@Param("roleId")int  roleId);
 
+
+    /**
+     * 删除菜单
+     * @param list 菜单id
+     * @return 删除行数
+     */
+    int delete(List<Integer> list);
+
 }

@@ -115,4 +115,9 @@ public class MenuServiceImpl implements MenuService {
         Tree<MenuEntity> tree = BuildTreeUtils.build(trees);
         return tree;
     }
+
+    @Override
+    public int menuDelete(List<Integer> list) {
+        return menuDao.delete(list);
+    }
 }
