@@ -44,6 +44,12 @@ public class IndexController {
     }
 
 
+    @ApiOperation(value = "跳转到欢迎页面", notes = "跳转到欢迎页面")
+    @GetMapping({"/main"})
+    public String homePage(Model model) {
+        return "main";
+    }
+
     @GetMapping("/login")
     public String login() {
         return "login";
