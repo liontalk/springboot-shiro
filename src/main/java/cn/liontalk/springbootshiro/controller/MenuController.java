@@ -16,6 +16,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -58,6 +59,14 @@ public class MenuController {
         return list;
     }
 
+
+    @ApiOperation(value = "菜单增加页面", notes = "菜单增加页面")
+    @GetMapping(value = "/add/{menuId}")
+    public String  toMenuAddPage(@PathVariable("menuId") Integer menuId, ModelMap modelMap) {
+        logger.info("跳转到菜单增加页面....");
+
+        return PREFIX + "/add";
+    }
 
     @ApiOperation(value = "菜单删除", notes = "菜单删除")
     @RequestMapping(value = "/delete/{menuId}",method = RequestMethod.POST)
