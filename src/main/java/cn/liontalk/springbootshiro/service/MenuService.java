@@ -3,8 +3,10 @@ package cn.liontalk.springbootshiro.service;
 
 import cn.liontalk.springbootshiro.common.domain.Tree;
 import cn.liontalk.springbootshiro.entity.MenuEntity;
+import cn.liontalk.springbootshiro.vo.MenuVO;
 import org.springframework.web.bind.annotation.PathVariable;
 
+import java.awt.*;
 import java.util.List;
 import java.util.Set;
 
@@ -53,4 +55,30 @@ public interface MenuService {
      * @return 删除行数
      */
     int menuDelete(List<Integer> list);
+
+
+    /**
+     * 子菜单id查找父菜单名称
+     * @param menuId 子菜单id
+     * @return MenuEntity
+     */
+    MenuEntity queryMenuParentNameById(int menuId);
+
+
+    /**
+     * 增加菜单数据到数据库
+     * @param menuEntity
+     * @return 受影响的行数
+     */
+    int  insert(MenuEntity menuEntity);
+
+
+    /**
+     *  查找菜单实体
+     * @param menuId
+     * @return MenuVO
+     */
+    MenuVO queryMenuVoById(int menuId);
+
+
 }

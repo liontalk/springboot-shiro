@@ -5,7 +5,9 @@ import cn.liontalk.springbootshiro.dao.MenuDao;
 import cn.liontalk.springbootshiro.entity.MenuEntity;
 import cn.liontalk.springbootshiro.service.MenuService;
 import cn.liontalk.springbootshiro.util.BuildTreeUtils;
+import cn.liontalk.springbootshiro.vo.MenuVO;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,6 +22,7 @@ import java.util.*;
  */
 @Service
 public class MenuServiceImpl implements MenuService {
+
 
 
     @Autowired
@@ -119,5 +122,32 @@ public class MenuServiceImpl implements MenuService {
     @Override
     public int menuDelete(List<Integer> list) {
         return menuDao.delete(list);
+    }
+
+    @Override
+    public MenuEntity queryMenuParentNameById(int menuId) {
+        return menuDao.queryMenuParentNameById(menuId);
+    }
+
+    @Override
+    public int insert(MenuEntity menuEntity) {
+        return menuDao.insert(menuEntity);
+    }
+
+    @Override
+    public MenuVO queryMenuVoById(int menuId) {
+        MenuVO menuVO = new MenuVO();
+        MenuEntity menuEntity =  menuDao.queryMenuParentNameById(menuId);
+        if(menuEntity==null){
+            MenuEntity menu =  menuDao.queryMenuById(menuId);
+            if(null!=menu){
+                menuVO.setMenuParentName(menu.getName());
+                BeanUtils.copyProperties(menu,menuVO);
+            }
+        }else{
+            menuVO.setMenuParentName(menuEntity.getName());
+            BeanUtils.copyProperties(menuEntity,menuVO);
+        }
+        return menuVO;
     }
 }

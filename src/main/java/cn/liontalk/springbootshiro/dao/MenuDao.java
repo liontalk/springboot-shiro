@@ -75,4 +75,35 @@ public interface MenuDao {
      */
     int delete(List<Integer> list);
 
+
+    /**
+     * 根据子菜单的id查找父菜单名称
+     * @param menuId
+     * @return
+     */
+    MenuEntity queryMenuParentNameById(@Param("menuId") int menuId);
+
+
+    /**
+     * 插入数据库
+     * @param menuEntity
+     * @return
+     */
+    int insert(MenuEntity menuEntity);
+
+
+    /**
+     * 更新菜单数据
+     * @param menuEntity
+     * @return 受影响的行数
+     */
+    int update(MenuEntity menuEntity);
+
+
+    /**
+     * 查找菜单实体
+     * @param menuId
+     * @return MenuEntity
+     */
+    MenuEntity queryMenuById(@Param("menuId") Integer menuId);
 }

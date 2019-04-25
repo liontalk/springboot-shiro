@@ -4,18 +4,14 @@ import cn.liontalk.springbootshiro.common.domain.Tree;
 import cn.liontalk.springbootshiro.common.result.AjaxResult;
 import cn.liontalk.springbootshiro.common.result.CodeMsg;
 import cn.liontalk.springbootshiro.entity.MenuEntity;
-import cn.liontalk.springbootshiro.entity.RoleEntity;
 import cn.liontalk.springbootshiro.service.MenuService;
-import cn.liontalk.springbootshiro.util.PageUtils;
-import com.sun.tools.javac.jvm.Code;
+import cn.liontalk.springbootshiro.vo.MenuVO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import io.swagger.models.auth.In;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
@@ -35,7 +31,6 @@ import java.util.List;
 public class MenuController {
 
 
-
     public static final String PREFIX = "system/menu/";
 
     private static final Logger logger = LoggerFactory.getLogger(MenuController.class);
@@ -45,7 +40,7 @@ public class MenuController {
 
     @ApiOperation(value = "菜单页面", notes = "菜单页面")
     @GetMapping(value = "/page")
-    public String  toMenuPage() {
+    public String toMenuPage() {
         logger.info("跳转到菜单页面....");
         return PREFIX + "/menu";
     }
@@ -62,36 +57,60 @@ public class MenuController {
 
     @ApiOperation(value = "菜单增加页面", notes = "菜单增加页面")
     @GetMapping(value = "/add/{menuId}")
-    public String  toMenuAddPage(@PathVariable("menuId") Integer menuId, ModelMap modelMap) {
+    public String toMenuAddPage(@PathVariable("menuId") Integer menuId, ModelMap modelMap) {
         logger.info("跳转到菜单增加页面....");
-
+        MenuVO menuVO = menuService.queryMenuVoById(menuId);
+        modelMap.put("menuVO", menuVO);
+        modelMap.put("menuId", menuId);
         return PREFIX + "/add";
     }
 
+
+    @ApiOperation(value = "菜单编辑页面", notes = "菜单编辑页面")
+    @GetMapping(value = "/edit/{menuId}")
+    public String toMenuEditPage(@PathVariable("menuId") Integer menuId, ModelMap modelMap) {
+        logger.info("跳转到菜单编辑页面....");
+        MenuEntity menuEntity = menuService.queryMenuParentNameById(menuId);
+        if (null == menuEntity) {
+            modelMap.put("pId", menuId);
+            modelMap.put("pName", "无");
+        } else {
+
+        }
+        return PREFIX + "/edit";
+    }
+
     @ApiOperation(value = "菜单删除", notes = "菜单删除")
-    @RequestMapping(value = "/delete/{menuId}",method = RequestMethod.POST)
+    @RequestMapping(value = "/delete/{menuId}", method = RequestMethod.POST)
     @ResponseBody
     public AjaxResult menuDelete(@PathVariable("menuId") Integer menuId) {
-        if(null==menuId){
+        if (null == menuId) {
             return AjaxResult.error(CodeMsg.PARAM_EMPTY);
         }
         List<Integer> list = new ArrayList<>();
         list.add(menuId);
-        int result =  menuService.menuDelete(list);
+        int result = menuService.menuDelete(list);
         return AjaxResult.success(result);
     }
 
 
+    @ApiOperation(value = "菜单增加", notes = "菜单增加")
+    @RequestMapping(value = "/save", method = RequestMethod.POST)
+    @ResponseBody
+    public AjaxResult insert(MenuEntity menuEntity) {
+        int result = menuService.insert(menuEntity);
+        return AjaxResult.success(result);
+    }
 
     @ApiOperation(value = "批量菜单删除", notes = "批量菜单删除")
-    @RequestMapping(value = "/batch/delete",method = RequestMethod.POST)
+    @RequestMapping(value = "/batch/delete", method = RequestMethod.POST)
     @ResponseBody
     public AjaxResult batchMenuDelete(@RequestParam("menuIds[]") Integer[] menuIds) {
-        if(null==menuIds || menuIds.length==0){
+        if (null == menuIds || menuIds.length == 0) {
             return AjaxResult.error(CodeMsg.PARAM_EMPTY);
         }
         List<Integer> list = Arrays.asList(menuIds);
-        int result =  menuService.menuDelete(list);
+        int result = menuService.menuDelete(list);
         return AjaxResult.success(result);
     }
 
@@ -101,7 +120,7 @@ public class MenuController {
     @ResponseBody
     public Tree<MenuEntity> tree() {
         logger.info("get menu tree start!");
-       return  menuService.getTree();
+        return menuService.getTree();
     }
 
 
@@ -110,9 +129,8 @@ public class MenuController {
     @ResponseBody
     public Tree<MenuEntity> tree(@PathVariable("roleId") Integer roleId) {
         logger.info("get menu tree start!");
-        return  menuService.getTreeByRoleId(roleId);
+        return menuService.getTreeByRoleId(roleId);
     }
-
 
 
 }

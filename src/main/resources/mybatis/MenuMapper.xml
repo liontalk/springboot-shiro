@@ -68,8 +68,10 @@
     </insert>
 
 
-    <select id="queryAllMenus"  resultMap="MenuEntityResultMap">
-        SELECT  <include refid="BaseColumnSql"/> FROM  sys_menu as menu
+    <select id="queryAllMenus" resultMap="MenuEntityResultMap">
+        SELECT
+        <include refid="BaseColumnSql"/>
+        FROM sys_menu as menu
     </select>
 
 
@@ -91,16 +93,16 @@
         `menu_id`,`parent_id`,`name`,`url`,`perms`,`type`,`icon`,`order_num`,`create_time`,`update_time`
         from sys_menu
         <where>
-            <if test="menuId != null and menuId != ''"> and menu_id = #{menuId} </if>
-            <if test="parentId != null and parentId != ''"> and parent_id = #{parentId} </if>
-            <if test="name != null and name != ''"> and name = #{name} </if>
-            <if test="url != null and url != ''"> and url = #{url} </if>
-            <if test="perms != null and perms != ''"> and perms = #{perms} </if>
-            <if test="type != null and type != ''"> and type = #{type} </if>
-            <if test="icon != null and icon != ''"> and icon = #{icon} </if>
-            <if test="orderNum != null and orderNum != ''"> and order_num = #{orderNum} </if>
-            <if test="createTime != null and createTime != ''"> and create_time = #{createTime} </if>
-            <if test="updateTime != null and updateTime != ''"> and updateTime = #{updateTime} </if>
+            <if test="menuId != null and menuId != ''">and menu_id = #{menuId}</if>
+            <if test="parentId != null and parentId != ''">and parent_id = #{parentId}</if>
+            <if test="name != null and name != ''">and name = #{name}</if>
+            <if test="url != null and url != ''">and url = #{url}</if>
+            <if test="perms != null and perms != ''">and perms = #{perms}</if>
+            <if test="type != null and type != ''">and type = #{type}</if>
+            <if test="icon != null and icon != ''">and icon = #{icon}</if>
+            <if test="orderNum != null and orderNum != ''">and order_num = #{orderNum}</if>
+            <if test="createTime != null and createTime != ''">and create_time = #{createTime}</if>
+            <if test="updateTime != null and updateTime != ''">and updateTime = #{updateTime}</if>
         </where>
         <choose>
             <when test="sort != null and sort.trim() != ''">
@@ -134,5 +136,70 @@
             #{item}
         </foreach>
     </delete>
+
+
+    <select id="queryMenuParentNameById" resultMap="MenuEntityResultMap">
+        SELECT
+            b.*
+        FROM
+            sys_menu AS b where  b.menu_id = (
+                SELECT
+                    menu.parent_id
+                FROM
+                    `sys_menu` AS menu
+                WHERE
+                    menu.menu_id = #{menuId}
+            )
+    </select>
+
+
+    <insert id="insert" parameterType="cn.liontalk.springbootshiro.entity.MenuEntity">
+        INSERT INTO `sys_menu` (
+            `parent_id`,
+            `name`,
+            `url`,
+            `perms`,
+            `type`,
+            `icon`,
+            `order_num`,
+            `create_time`,
+            `update_time`
+        )
+        VALUES
+            (
+                #{parentId},
+                #{name},
+                #{url},
+                #{perms},
+                #{type},
+                #{icon},
+                #{orderNum},
+                now(),
+                now()
+            );
+    </insert>
+
+
+    <update id="update" parameterType="cn.liontalk.springbootshiro.entity.MenuEntity">
+            UPDATE `sys_menu`
+            SET
+             `parent_id` = #{parentId},
+             `name` = #{name},
+             `url` = #{url},
+             `perms` = #{perms},
+             `type` = #{type},
+             `icon` = #{icon},
+             `order_num` = #{orderNum},
+             `update_time` = now()
+            WHERE
+                `menu_id` = #{menuId};
+    </update>
+
+
+    <select id="queryMenuById" resultMap="MenuEntityResultMap">
+        SELECT
+        <include refid="BaseColumnSql"/>
+        FROM sys_menu as menu where  menu.menu_id = #{menuId}
+    </select>
 
 </mapper>

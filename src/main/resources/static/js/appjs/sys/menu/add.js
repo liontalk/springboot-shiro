@@ -1,4 +1,4 @@
-var prefix = "/sys/menu"
+var prefix = "/menu"
 $(function() {
 	validateRule();
 	//打开图标列表
@@ -17,10 +17,10 @@ $(function() {
 });
 $.validator.setDefaults({
 	submitHandler : function() {
-		submit01();
+		submit();
 	}
 });
-function submit01() {
+function submit() {
 	$.ajax({
 		cache : true,
 		type : "POST",
@@ -28,7 +28,7 @@ function submit01() {
 		data : $('#signupForm').serialize(),
 		async : false,
 		error : function(request) {
-			laryer.alert("Connection error");
+			layer.alert("Connection error");
 		},
 		success : function(data) {
 			if (data.code == 0) {
