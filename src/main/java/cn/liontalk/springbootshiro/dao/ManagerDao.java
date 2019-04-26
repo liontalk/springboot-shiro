@@ -1,9 +1,11 @@
 package cn.liontalk.springbootshiro.dao;
 
 import cn.liontalk.springbootshiro.entity.ManagerEntity;
+import cn.liontalk.springbootshiro.entity.MenuEntity;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
+import java.awt.*;
 import java.util.List;
 
 @Mapper
@@ -43,5 +45,13 @@ public interface ManagerDao {
      * @param managerEntity
      */
     void updateManager(ManagerEntity managerEntity);
+
+
+    /**
+     * 查找管理员的信息
+     * @param userId
+     * @return MenuEntity
+     */
+    ManagerEntity queryManagerById(@Param("userId") int userId);
 
 }

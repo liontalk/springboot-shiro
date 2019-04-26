@@ -4,15 +4,21 @@ import cn.liontalk.springbootshiro.common.result.AjaxResult;
 import cn.liontalk.springbootshiro.common.result.CodeMsg;
 import cn.liontalk.springbootshiro.entity.ManagerEntity;
 import cn.liontalk.springbootshiro.service.ManagerService;
+import cn.liontalk.springbootshiro.util.MD5Utils;
 import cn.liontalk.springbootshiro.util.PageUtils;
+import cn.liontalk.springbootshiro.util.ShiroUtils;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import org.apache.commons.lang3.StringUtils;
+import org.apache.ibatis.annotations.Param;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
+import java.rmi.MarshalledObject;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -102,6 +108,41 @@ public class ManagerController {
         }else{
             return AjaxResult.error(CodeMsg.DELETE_ERROR);
         }
+    }
+
+
+    /**
+     * 管理员重置密码
+     * @param userId
+     * @return  String
+     */
+    @ApiOperation(value = "管理员重置密码", notes = "管理员重置密码")
+    @RequestMapping(value = "/resetPwd/{id}")
+    public String toResetPassWord(@PathVariable("id") String userId, ModelMap modelMap){
+        modelMap.put("userId",userId);
+        return PREFIX + "reset_pwd";
+    }
+
+
+    /**
+     * 管理员重置密码
+     * @param userId
+     * @return  String
+     */
+    @ApiOperation(value = "管理员重置密码", notes = "管理员重置密码")
+    @RequestMapping(value = "/resetPwd/{id}",method = RequestMethod.POST)
+    @ResponseBody
+    public AjaxResult resetManagerPassword(@PathVariable("id") int userId,@RequestParam("oldPassword") String oldPassword,
+                                       @RequestParam("surePassword") String surePassword){
+        if(StringUtils.isEmpty(oldPassword) || StringUtils.isEmpty(surePassword)){
+            return AjaxResult.error(CodeMsg.PARAM_EMPTY);
+        }
+        ManagerEntity managerEntity =  managerService.queryManagerById(userId);
+        if(oldPassword.equals(surePassword)){
+            String finalResult = MD5Utils.encrypt(managerEntity.getUsername(),surePassword);
+            managerService.updatePassword(userId,finalResult);
+        }
+        return AjaxResult.success(null);
     }
 
 

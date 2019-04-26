@@ -37,6 +37,12 @@
         FROM sys_manager as z where z.status = 1
     </select>
 
+    <select id="queryManagerById" resultMap="BaseColumnResultMap">
+        SELECT
+        <include refid="BaseColumn"/>
+        FROM sys_manager as z where z.status = 1 and z.user_id = #{userId}
+    </select>
+
 
     <select id="findManagerByName" resultMap="BaseColumnResultMap">
         select

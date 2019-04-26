@@ -33,4 +33,17 @@ public class ManagerServiceImpl implements ManagerService {
     public void updateManager(ManagerEntity managerEntity) {
         managerDao.updateManager(managerEntity);
     }
+
+    @Override
+    public ManagerEntity queryManagerById(int id) {
+        return managerDao.queryManagerById(id);
+    }
+
+    @Override
+    public void updatePassword(int userId, String password) {
+        ManagerEntity managerEntity = new ManagerEntity();
+        managerEntity.setPassword(password);
+        managerEntity.setUserId(userId);
+        managerDao.updateManager(managerEntity);
+    }
 }
