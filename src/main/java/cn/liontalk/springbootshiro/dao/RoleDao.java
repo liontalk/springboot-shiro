@@ -62,7 +62,7 @@ public interface RoleDao {
      * @param roleId
      * @return
      */
-    List<RoleEntity> queryManagerRoleById(@Param("roleId") int roleId);
+    List<RoleEntity> queryManagerRoleById(@Param("roleId") Integer roleId);
 
 
     /**

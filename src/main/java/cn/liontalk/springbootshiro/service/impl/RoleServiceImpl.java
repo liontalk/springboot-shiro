@@ -72,7 +72,7 @@ public class RoleServiceImpl implements RoleService {
     }
 
     @Override
-    public List<RoleEntity> queryManagerRoleById(int userId) {
+    public List<RoleEntity> queryManagerRoleById(Integer userId) {
         List<RoleEntity> list = roleDao.queryManagerRoleById(userId);
         return list;
     }

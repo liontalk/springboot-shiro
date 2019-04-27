@@ -44,7 +44,7 @@ public interface RoleService {
      * @param userId
      * @return
      */
-    List<RoleEntity> queryManagerRoleById(int userId);
+    List<RoleEntity> queryManagerRoleById(Integer userId);
 
     /**
      *  根据用户的ID查找管理员的权限菜单

@@ -3,16 +3,20 @@ package cn.liontalk.springbootshiro.controller;
 import cn.liontalk.springbootshiro.common.result.AjaxResult;
 import cn.liontalk.springbootshiro.common.result.CodeMsg;
 import cn.liontalk.springbootshiro.entity.ManagerEntity;
+import cn.liontalk.springbootshiro.entity.RoleEntity;
 import cn.liontalk.springbootshiro.service.ManagerService;
+import cn.liontalk.springbootshiro.service.RoleService;
 import cn.liontalk.springbootshiro.util.MD5Utils;
 import cn.liontalk.springbootshiro.util.PageUtils;
 import cn.liontalk.springbootshiro.util.ShiroUtils;
+import cn.liontalk.springbootshiro.vo.RoleVO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.apache.commons.lang3.StringUtils;
-import org.apache.ibatis.annotations.Param;
+import org.apache.shiro.util.CollectionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -20,6 +24,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.List;
 
 @Controller
@@ -33,6 +38,9 @@ public class ManagerController {
 
     @Autowired
     private ManagerService managerService;
+
+    @Autowired
+    private RoleService  roleService;
 
 
 
@@ -70,7 +78,20 @@ public class ManagerController {
 
     @ApiOperation(value = "增加管理员", notes = "增加管理员")
     @GetMapping(value = "/add")
-    public String toMangerAddPage() {
+    public String toMangerAddPage(ModelMap modelMap) {
+        List<RoleVO> roleVOList = new ArrayList<>();
+        ManagerEntity managerEntity = ShiroUtils.getManagerInfo();
+        if(null!=managerEntity){
+            List<RoleEntity>  list = roleService.queryAllRoles();
+            if(!CollectionUtils.isEmpty(list)){
+                for(RoleEntity roleEntity:list){
+                    RoleVO roleVO = new RoleVO();
+                    BeanUtils.copyProperties(roleEntity,roleVO);
+                    roleVOList.add(roleVO);
+                }
+            }
+            modelMap.put("list",roleVOList);
+        }
         return PREFIX + "/add";
     }
 

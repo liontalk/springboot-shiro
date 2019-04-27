@@ -93,8 +93,11 @@
         FROM
             sys_manager_role AS a
         LEFT JOIN sys_role AS role ON a.role_id = role.role_id
-        WHERE
-            a.user_id = #{roleId}
+       <where>
+           <if test="roleId!=null">
+               a.user_id = #{roleId}
+           </if>
+       </where>
     </select>
 
 
