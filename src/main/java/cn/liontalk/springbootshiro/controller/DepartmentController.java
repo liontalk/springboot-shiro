@@ -1,5 +1,6 @@
 package cn.liontalk.springbootshiro.controller;
 
+import cn.liontalk.springbootshiro.common.domain.Tree;
 import cn.liontalk.springbootshiro.common.result.AjaxResult;
 import cn.liontalk.springbootshiro.entity.DepartEntity;
 import cn.liontalk.springbootshiro.service.DepartmentService;
@@ -99,4 +100,22 @@ public class DepartmentController {
         int result = departmentService.delete(deptId);
         return AjaxResult.success(result);
     }
+
+
+
+    @ApiOperation(value = "获得部门数据树", notes = "获得部门数据树")
+    @RequestMapping(value = "/treeView", method = RequestMethod.GET)
+    public String treeView() {
+        return PREFIX + "deptTree";
+    }
+
+
+    @ApiOperation(value = "获得部门数据树", notes = "获得部门数据树")
+    @RequestMapping(value = "/tree", method = RequestMethod.GET)
+    @ResponseBody
+    public Tree<DepartEntity> treeData() {
+        Tree<DepartEntity> tree = departmentService.getTree();
+        return tree;
+    }
+
 }

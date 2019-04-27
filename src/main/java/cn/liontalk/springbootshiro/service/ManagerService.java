@@ -21,7 +21,7 @@ public interface ManagerService {
      *
      * @param managerEntity
      */
-    void insertManager(ManagerEntity managerEntity);
+    int insertManager(ManagerEntity managerEntity);
 
 
     /**
@@ -51,5 +51,7 @@ public interface ManagerService {
      * @param password 管理员密码
      */
     void updatePassword(int userId,String password);
+
+
 
 }

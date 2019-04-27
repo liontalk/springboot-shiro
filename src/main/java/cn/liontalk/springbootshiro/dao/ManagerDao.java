@@ -30,7 +30,7 @@ public interface ManagerDao {
      * 增加管理员信息
      * @param managerEntity
      */
-    void insertManager(ManagerEntity managerEntity);
+    int insertManager(ManagerEntity managerEntity);
 
 
     /**

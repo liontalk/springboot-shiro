@@ -20,8 +20,8 @@ public class ManagerServiceImpl implements ManagerService {
     }
 
     @Override
-    public void insertManager(ManagerEntity managerEntity) {
-        managerDao.insertManager(managerEntity);
+    public int insertManager(ManagerEntity managerEntity) {
+       return managerDao.insertManager(managerEntity);
     }
 
     @Override
@@ -46,4 +46,5 @@ public class ManagerServiceImpl implements ManagerService {
         managerEntity.setUserId(userId);
         managerDao.updateManager(managerEntity);
     }
+
 }

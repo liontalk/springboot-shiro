@@ -18,7 +18,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
-import java.rmi.MarshalledObject;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -69,12 +68,23 @@ public class ManagerController {
         return AjaxResult.success(list);
     }
 
-    @ApiOperation(value = "管理员查询", notes = "管理员列表展示")
+    @ApiOperation(value = "增加管理员", notes = "增加管理员")
     @GetMapping(value = "/add")
-    public AjaxResult<List<ManagerEntity>> toMangerAddPage() {
-        List<ManagerEntity> list = managerService.queryAllManager();
-        return AjaxResult.success(list);
+    public String toMangerAddPage() {
+        return PREFIX + "/add";
     }
+
+
+    @ApiOperation(value = "增加管理员到数据库", notes = "增加管理员到数据库")
+    @RequestMapping(value = "/save",method = RequestMethod.POST)
+    @ResponseBody
+    public AjaxResult insertManagerToDB(ManagerEntity managerEntity){
+       int result =   managerService.insertManager(managerEntity);
+        return AjaxResult.success(result);
+    }
+
+
+
 
     @ApiOperation(value = "管理员删除", notes = "管理员删除")
     @RequestMapping(value = "/delete",method = RequestMethod.POST)
@@ -112,13 +122,13 @@ public class ManagerController {
 
 
     /**
-     * 管理员重置密码
+     * 跳转到管理员重置密码
      * @param userId
      * @return  String
      */
     @ApiOperation(value = "管理员重置密码", notes = "管理员重置密码")
     @RequestMapping(value = "/resetPwd/{id}")
-    public String toResetPassWord(@PathVariable("id") String userId, ModelMap modelMap){
+    public String toResetPasswordPage(@PathVariable("id") String userId, ModelMap modelMap){
         modelMap.put("userId",userId);
         return PREFIX + "reset_pwd";
     }

@@ -79,4 +79,28 @@
         SELECT <include refid="BaseColumnSql"/> from sys_dept as dept WHERE dept.del_flag = 1
     </select>
 
+
+    <select id="list" resultMap="DeptResultMap">
+        select `dept_id`,`parent_id`,`name`,`order_num`,`del_flag` from
+        sys_dept
+        <where>
+            <if test="deptId != null and deptId != ''"> and dept_id = #{deptId} </if>
+            <if test="parentId != null and parentId != ''"> and parent_id = #{parentId} </if>
+            <if test="name != null and name != ''"> and name = #{name} </if>
+            <if test="orderNum != null and orderNum != ''"> and order_num = #{orderNum} </if>
+            <if test="delFlag != null and delFlag != ''"> and del_flag = #{delFlag} </if>
+        </where>
+        <choose>
+            <when test="sort != null and sort.trim() != ''">
+                order by ${sort} ${order}
+            </when>
+            <otherwise>
+                order by dept_id desc
+            </otherwise>
+        </choose>
+        <if test="offset != null and limit != null">
+            limit #{offset}, #{limit}
+        </if>
+    </select>
+
 </mapper>

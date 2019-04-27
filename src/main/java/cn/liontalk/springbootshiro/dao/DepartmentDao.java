@@ -5,6 +5,7 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author Administrator
@@ -55,10 +56,10 @@ public interface DepartmentDao {
 
 
     /**
-     * 查找子部门的上一级部门
-     * @param deptId
-     * @return
+     * 获取部门菜单树
+     * @param map
+     * @return List<DepartEntity>
      */
-
+    List<DepartEntity> list(Map<String, Object> map);
 
 }

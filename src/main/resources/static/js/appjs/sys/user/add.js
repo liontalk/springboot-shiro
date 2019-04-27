@@ -23,7 +23,7 @@ function save() {
 	$.ajax({
 		cache : true,
 		type : "POST",
-		url : "/sys/user/save",
+		url : "/manager/save",
 		data : $('#signupForm').serialize(),// 你的formid
 		async : false,
 		error : function(request) {
@@ -113,7 +113,7 @@ var openDept = function(){
 		type:2,
 		title:"选择部门",
 		area : [ '300px', '450px' ],
-		content:"/system/sysDept/treeView"
+		content:"/department/treeView"
 	})
 }
 function loadDept( deptId,deptName){

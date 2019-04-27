@@ -1,5 +1,6 @@
 package cn.liontalk.springbootshiro.service;
 
+import cn.liontalk.springbootshiro.common.domain.Tree;
 import cn.liontalk.springbootshiro.entity.DepartEntity;
 import cn.liontalk.springbootshiro.vo.DepartmentVO;
 
@@ -50,4 +51,11 @@ public interface DepartmentService {
      * @return
      */
     DepartmentVO queryDeptById(int deptId);
+
+
+    /**
+     * 获取部门树
+     * @return  Tree<DepartEntity>
+     */
+    Tree<DepartEntity> getTree();
 }
