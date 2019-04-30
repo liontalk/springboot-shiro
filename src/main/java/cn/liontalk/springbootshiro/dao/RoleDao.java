@@ -1,11 +1,9 @@
 package cn.liontalk.springbootshiro.dao;
 
-import cn.liontalk.springbootshiro.entity.ManagerEntity;
 import cn.liontalk.springbootshiro.entity.RoleEntity;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
-import javax.management.relation.Role;
 import java.util.List;
 
 @Mapper
