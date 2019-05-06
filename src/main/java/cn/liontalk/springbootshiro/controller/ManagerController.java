@@ -170,6 +170,8 @@ public class ManagerController {
         if(oldPassword.equals(surePassword)){
             String finalResult = MD5Utils.encrypt(managerEntity.getUsername(),surePassword);
             managerService.updatePassword(userId,finalResult);
+        }else{
+            return AjaxResult.error(CodeMsg.PASSWORD_NOT_SAME);
         }
         return AjaxResult.success(null);
     }

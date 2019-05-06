@@ -60,4 +60,10 @@ public class CodeMsg {
      *  参数缺失
      */
     public static CodeMsg PARAM_EMPTY = new CodeMsg(500105, "参数缺失");
+
+
+    /**
+     *  两次密码输入不一致
+     */
+    public static CodeMsg PASSWORD_NOT_SAME = new CodeMsg(500106, "两次密码输入不一致");
 }

@@ -19,7 +19,6 @@ function getCheckedRoles() {
 	return adIds;
 }
 function save() {
-	alert(12);
 	$("#roleIds").val(getCheckedRoles());
 	$.ajax({
 		cache : true,
@@ -55,16 +54,16 @@ function validateRule() {
 			username : {
 				required : true,
 				minlength : 2,
-				remote : {
-					url : "/sys/user/exit", // 后台处理程序
-					type : "post", // 数据发送方式
-					dataType : "json", // 接受数据格式
-					data : { // 要传递的数据
-						username : function() {
-							return $("#username").val();
-						}
-					}
-				}
+				// remote : {
+				// 	url : "/sys/user/exit", // 后台处理程序
+				// 	type : "post", // 数据发送方式
+				// 	dataType : "json", // 接受数据格式
+				// 	data : { // 要传递的数据
+				// 		username : function() {
+				// 			return $("#username").val();
+				// 		}
+				// 	}
+				// }
 			},
 			password : {
 				required : true,
