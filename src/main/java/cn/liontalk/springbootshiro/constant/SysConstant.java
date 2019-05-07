@@ -17,13 +17,19 @@ public class SysConstant {
     /**
      *  管理员状态是锁定状态
      */
-    public static final Integer LOCK_STATUS = 0;
+    public static final Integer LOCK_STATUS = 2;
 
 
     /**
      * 管理员状态是正常状态
      */
     public static final Integer NORMAL_STATUS = 1;
+
+
+    /**
+     * 管理员状态是正常状态
+     */
+    public static final Integer DELETE_STATUS = 0;
 
 
     public static final String MANAGER = "MANAGER";

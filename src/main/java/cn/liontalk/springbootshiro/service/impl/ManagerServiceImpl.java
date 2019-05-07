@@ -45,7 +45,7 @@ public class ManagerServiceImpl implements ManagerService {
         ManagerEntity managerEntity = new ManagerEntity();
         managerEntity.setPassword(password);
         managerEntity.setUserId(userId);
-        managerEntity.setStatus(SysConstant.NORMAL_STATUS);
+        managerEntity.setStatus(null);
         managerDao.updateManager(managerEntity);
     }
 

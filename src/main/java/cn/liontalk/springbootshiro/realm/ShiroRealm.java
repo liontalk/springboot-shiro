@@ -1,5 +1,6 @@
 package cn.liontalk.springbootshiro.realm;
 
+import cn.liontalk.springbootshiro.constant.SysConstant;
 import cn.liontalk.springbootshiro.entity.ManagerEntity;
 import cn.liontalk.springbootshiro.service.LoginService;
 import cn.liontalk.springbootshiro.service.MenuService;
@@ -43,7 +44,6 @@ public class ShiroRealm extends AuthorizingRealm {
         String username = (String) authenticationToken.getPrincipal();
         String password = new String((char[]) authenticationToken.getCredentials());
         ManagerEntity managerEntity = loginService.findManagerByName(username);
-
         // 账号不存在
         if (managerEntity == null) {
             throw new UnknownAccountException("账号或密码不正确");
@@ -52,9 +52,8 @@ public class ShiroRealm extends AuthorizingRealm {
         if (!password.equals(managerEntity.getPassword())) {
             throw new IncorrectCredentialsException("账号或密码不正确");
         }
-
         // 账号锁定
-        if (managerEntity.getStatus() == 0) {
+        if (managerEntity.getStatus().equals(SysConstant.LOCK_STATUS)) {
             throw new LockedAccountException("账号已被锁定,请联系管理员");
         }
         SimpleAuthenticationInfo info = new SimpleAuthenticationInfo(managerEntity, password, getName());

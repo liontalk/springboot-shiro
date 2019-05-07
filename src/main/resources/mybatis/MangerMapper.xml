@@ -34,13 +34,13 @@
     <select id="queryAllManager" resultMap="BaseColumnResultMap">
         SELECT
         <include refid="BaseColumn"/>
-        FROM sys_manager as z where z.status = 1
+        FROM sys_manager as z where z.status IN (1,2)
     </select>
 
     <select id="queryManagerById" resultMap="BaseColumnResultMap">
         SELECT
         <include refid="BaseColumn"/>
-        FROM sys_manager as z where z.status = 1 and z.user_id = #{userId}
+        FROM sys_manager as z where z.status IN (1,2)  and z.user_id = #{userId}
     </select>
 
 

@@ -83,7 +83,7 @@ public class CodeMsg {
     /**
      *  账号锁定
      */
-    public static CodeMsg ACCOUNT_LOCKED = new CodeMsg(500109, "账号锁定");
+    public static CodeMsg ACCOUNT_LOCKED = new CodeMsg(500109, "账号已被锁定,请联系管理员");
 
 
 

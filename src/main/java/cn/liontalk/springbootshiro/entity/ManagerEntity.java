@@ -53,7 +53,7 @@ public class ManagerEntity implements Serializable {
     /**
      * 状态
      */
-    private int status;
+    private Integer status;
 
     /**
      * 创建用户的id
