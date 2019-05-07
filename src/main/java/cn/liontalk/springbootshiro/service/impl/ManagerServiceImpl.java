@@ -1,5 +1,6 @@
 package cn.liontalk.springbootshiro.service.impl;
 
+import cn.liontalk.springbootshiro.constant.SysConstant;
 import cn.liontalk.springbootshiro.dao.ManagerDao;
 import cn.liontalk.springbootshiro.entity.ManagerEntity;
 import cn.liontalk.springbootshiro.service.ManagerService;
@@ -21,12 +22,12 @@ public class ManagerServiceImpl implements ManagerService {
 
     @Override
     public int insertManager(ManagerEntity managerEntity) {
-       return managerDao.insertManager(managerEntity);
+        return managerDao.insertManager(managerEntity);
     }
 
     @Override
-    public int  deleteManagerInfo(List<Integer> list) {
-       return  managerDao.deleteManager(list);
+    public int deleteManagerInfo(List<Integer> list) {
+        return managerDao.deleteManager(list);
     }
 
     @Override
@@ -44,6 +45,7 @@ public class ManagerServiceImpl implements ManagerService {
         ManagerEntity managerEntity = new ManagerEntity();
         managerEntity.setPassword(password);
         managerEntity.setUserId(userId);
+        managerEntity.setStatus(SysConstant.NORMAL_STATUS);
         managerDao.updateManager(managerEntity);
     }
 

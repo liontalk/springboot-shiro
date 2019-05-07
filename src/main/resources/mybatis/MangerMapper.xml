@@ -60,19 +60,36 @@
 
     <update id="updateManager" parameterType="cn.liontalk.springbootshiro.entity.ManagerEntity">
         UPDATE `sys_manager`
-        SET
-         `username` = #{username},
-         `name` = #{name},
-         `password` = #{password},
-         `dept_id` = #{deptId},
-         `email` = #{email},
-         `mobile` = #{mobile},
-         `status` = #{status},
-         `user_id_create` = #{userIdCreate},
-         `create_time` = now(),
-         `update_time` = now()
+        <trim prefix="set" suffixOverrides=",">
+            <if test="username!=null">
+                `username` = #{username},
+            </if>
+            <if test="name!=null">
+                `name` = #{name},
+            </if>
+            <if test="password!=null">
+                `password` = #{password},
+            </if>
+            <if test="deptId!=null">
+                `dept_id` = #{deptId},
+            </if>
+            <if test="email!=null">
+                `email` = #{email},
+            </if>
+            <if test="mobile!=null">
+                `mobile` = #{mobile},
+            </if>
+            <if test="status!=null">
+                `status` = #{status},
+            </if>
+            <if test="userIdCreate!=null">
+                `user_id_create` = #{userIdCreate},
+            </if>
+            `create_time` = now(),
+            `update_time` = now(),
+        </trim>
         WHERE
-            `user_id` = #{userId};
+        `user_id` = #{userId};
     </update>
 
 
