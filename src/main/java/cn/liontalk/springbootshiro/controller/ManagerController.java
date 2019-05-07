@@ -177,4 +177,32 @@ public class ManagerController {
     }
 
 
+
+    /**
+     * 跳转到编辑管理员页面
+     *
+     * @param userId
+     * @return String
+     */
+    @ApiOperation(value = "管理员重置密码", notes = "管理员重置密码")
+    @RequestMapping(value = "/edit/{id}")
+    public String toUpdateManagerPage(@PathVariable("id") int userId, ModelMap modelMap) {
+        ManagerEntity managerEntity = managerService.queryManagerById(userId);
+        List<RoleVO> roleVOList = new ArrayList<>();
+        if (null != managerEntity) {
+            modelMap.put("user", managerEntity);
+            List<RoleEntity> list = roleService.queryAllRoles();
+            if (!CollectionUtils.isEmpty(list)) {
+                for (RoleEntity roleEntity : list) {
+                    RoleVO roleVO = new RoleVO();
+                    BeanUtils.copyProperties(roleEntity, roleVO);
+                    roleVOList.add(roleVO);
+                }
+            }
+            modelMap.put("list", roleVOList);
+        }
+        return PREFIX + "edit";
+    }
+
+
 }

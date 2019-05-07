@@ -83,7 +83,9 @@ function load(deptId) {
 								return '<span class="label label-danger">禁用</span>';
 							} else if (value == '1') {
 								return '<span class="label label-primary">正常</span>';
-							}
+							}else if (value == '2') {
+                                return '<span class="label label-warning">锁定</span>';
+                            }
 						}
 					},
 					{
