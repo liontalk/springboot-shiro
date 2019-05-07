@@ -66,4 +66,29 @@ public class CodeMsg {
      *  两次密码输入不一致
      */
     public static CodeMsg PASSWORD_NOT_SAME = new CodeMsg(500106, "两次密码输入不一致");
+
+
+    /**
+     *  账号不存在
+     */
+    public static CodeMsg UNKNOWN_ACCOUNT = new CodeMsg(500107, "账号不存在");
+
+
+    /**
+     *  账号或者密码错误
+     */
+    public static CodeMsg ACCOUNT_OR_PASSWORD_ERROR = new CodeMsg(500108, "账号或者密码错误");
+
+
+    /**
+     *  账号锁定
+     */
+    public static CodeMsg ACCOUNT_LOCKED = new CodeMsg(500109, "账号锁定");
+
+
+
+    /**
+     *  未知错误
+     */
+    public static CodeMsg UNKNOWN_ERROR = new CodeMsg(500000, "未知错误");
 }

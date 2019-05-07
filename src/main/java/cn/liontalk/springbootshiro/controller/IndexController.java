@@ -14,6 +14,9 @@ import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.authc.IncorrectCredentialsException;
+import org.apache.shiro.authc.LockedAccountException;
+import org.apache.shiro.authc.UnknownAccountException;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.subject.Subject;
 import org.slf4j.Logger;
@@ -64,19 +67,27 @@ public class IndexController {
     @ResponseBody
     public AjaxResult managerLogin(@RequestParam("username") String username,
                                    @RequestParam("password") String password, HttpSession session) {
-
         password = MD5Utils.encrypt(username, password);
         UsernamePasswordToken token = new UsernamePasswordToken(username, password);
         Subject subject = SecurityUtils.getSubject();
         try {
             subject.login(token);
+        } catch (UnknownAccountException e) {
+            logger.error("登录失败! " + e.getMessage());
+            return AjaxResult.error(CodeMsg.UNKNOWN_ACCOUNT);
+        } catch (IncorrectCredentialsException e) {
+            logger.error("登录失败! " + e.getMessage());
+            return AjaxResult.error(CodeMsg.ACCOUNT_OR_PASSWORD_ERROR);
+        } catch (LockedAccountException e) {
+            logger.error("登录失败! " + e.getMessage());
+            return AjaxResult.error(CodeMsg.ACCOUNT_LOCKED);
         } catch (Exception e) {
             logger.error("登录失败! " + e.getMessage());
-            return AjaxResult.success(CodeMsg.BIND_ERROR);
+            return AjaxResult.error(CodeMsg.UNKNOWN_ERROR);
         }
         ManagerEntity managerEntity = ShiroUtils.getManagerInfo();
         logger.info("manager:" + managerEntity);
-        session.setAttribute(SysConstant.MANAGER,managerEntity);
+        session.setAttribute(SysConstant.MANAGER, managerEntity);
         return AjaxResult.success(CodeMsg.SUCCESS);
     }
 
@@ -90,16 +101,6 @@ public class IndexController {
         model.addAttribute("name", user.getName());
         model.addAttribute("username", user.getUsername());
         model.addAttribute("picUrl", "/img/photo_s.jpg");
-//        FileDO fileDO = fileService.get(getUser().getPicId());
-//        if (fileDO != null && fileDO.getUrl() != null) {
-//            if (fileService.isExist(fileDO.getUrl())) {
-//                model.addAttribute("picUrl", fileDO.getUrl());
-//            } else {
-//                model.addAttribute("picUrl", "/img/photo_s.jpg");
-//            }
-//        } else {
-//            model.addAttribute("picUrl", "/img/photo_s.jpg");
-//        }
         return "index_v1";
     }
 }

@@ -96,16 +96,6 @@ public class RoleController {
     }
 
 
-//    @ApiOperation(value = "角色更新页面", notes = "角色更新页面")
-//    @RequestMapping(value = "/edit/{id}",method = RequestMethod.GET)
-//    public String  updateRoleInfo(@PathVariable("id") Integer id, ModelMap modelMap) {
-//        RoleEntity roleEntity = roleService.queryRoleAndMenuById(id);
-//        modelMap.put("role",roleEntity);
-//        return PREFIX + "edit";
-//    }
-
-
-
     @ApiOperation(value = "角色页面列表", notes = "角色页面列表")
     @RequestMapping(value = "/list",method = RequestMethod.GET)
     @ResponseBody

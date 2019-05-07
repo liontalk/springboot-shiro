@@ -50,7 +50,6 @@ public class DepartmentController {
     @ResponseBody
     public List<DepartEntity> getAllDepartList() {
         List<DepartEntity> list = departmentService.queryAllDepartment();
-        // return AjaxResult.success(list);
         return list;
     }
 

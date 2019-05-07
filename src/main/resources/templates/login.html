@@ -22,9 +22,6 @@
     </script>
 
 </head>
-
-
-
 <body class="signin">
 <div class="signinpanel">
     <div class="row">
@@ -75,10 +72,8 @@
 <!-- 全局js -->
 <script src="/js/jquery.min.js?v=2.1.4" th:src="@{/js/jquery.min.js?v=2.1.4}"></script>
 <script src="/js/bootstrap.min.js?v=3.3.6" th:src="@{/js/bootstrap.min.js?v=3.3.6}"></script>
-
 <!-- 自定义js -->
 <script src="/js/content.js?v=1.0.0" th:src="@{/js/content.js?v=1.0.0}"></script>
-
 <!-- jQuery Validation plugin javascript-->
 <script src="/js/ajax-util.js"></script>
 <script src="/js/plugins/validate/jquery.validate.min.js"
@@ -116,7 +111,7 @@
                     });
                     parent.location.href = '/index';
                 } else {
-                    layer.msg(r.msg);
+                    layer.msg(r.message);
                 }
             },
         });

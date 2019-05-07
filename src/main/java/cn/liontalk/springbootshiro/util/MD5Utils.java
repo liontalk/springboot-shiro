@@ -29,10 +29,8 @@ public class MD5Utils {
     }
 
     public static String encrypt(String username, String password) {
-
         String newPassword = new SimpleHash(ENCRYPT_NAME, password, ByteSource.Util.bytes(username + SALT),
                 HASH_ITERATIONS).toHex();
-        logger.info("第一次加密:"+newPassword);
         return newPassword;
     }
 
