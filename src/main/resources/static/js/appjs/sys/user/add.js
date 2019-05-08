@@ -19,7 +19,7 @@ function getCheckedRoles() {
 	return adIds;
 }
 function save() {
-	$("#roleIds").val(getCheckedRoles());
+	$("#roleEntityList").val(getCheckedRoles());
 	$.ajax({
 		cache : true,
 		type : "POST",

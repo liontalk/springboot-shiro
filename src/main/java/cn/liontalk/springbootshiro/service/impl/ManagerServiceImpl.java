@@ -1,11 +1,15 @@
 package cn.liontalk.springbootshiro.service.impl;
 
 import cn.liontalk.springbootshiro.dao.ManagerDao;
+import cn.liontalk.springbootshiro.dao.RoleDao;
 import cn.liontalk.springbootshiro.entity.ManagerEntity;
+import cn.liontalk.springbootshiro.entity.RoleEntity;
 import cn.liontalk.springbootshiro.service.ManagerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -14,6 +18,9 @@ public class ManagerServiceImpl implements ManagerService {
     @Autowired
     private ManagerDao managerDao;
 
+    @Autowired
+    private RoleDao roleDao;
+
     @Override
     public List<ManagerEntity> queryAllManager() {
         return managerDao.queryAllManager();
@@ -21,6 +28,7 @@ public class ManagerServiceImpl implements ManagerService {
 
     @Override
     public int insertManager(ManagerEntity managerEntity) {
+
         return managerDao.insertManager(managerEntity);
     }
 
@@ -36,7 +44,18 @@ public class ManagerServiceImpl implements ManagerService {
 
     @Override
     public ManagerEntity queryManagerById(int id) {
-        return managerDao.queryManagerById(id);
+        List<Long> roleEntityList = new ArrayList<>();
+        ManagerEntity managerEntity = managerDao.queryManagerById(id);
+        if(null!=managerEntity){
+           List<RoleEntity> list = roleDao.queryManagerRoleById(id);
+           if(!CollectionUtils.isEmpty(list)){
+               for(RoleEntity entity:list){
+                   roleEntityList.add(entity.getRoleId());
+               }
+           }
+           managerEntity.setRoleEntityList(roleEntityList);
+        }
+        return managerEntity;
     }
 
     @Override

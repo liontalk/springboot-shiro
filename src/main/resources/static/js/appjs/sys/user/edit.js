@@ -9,7 +9,7 @@ $.validator.setDefaults({
 	}
 });
 function update() {
-	$("#roleIds").val(getCheckedRoles());
+	$("#roleEntityList").val(getCheckedRoles());
 	$.ajax({
 		cache : true,
 		type : "POST",
@@ -17,7 +17,7 @@ function update() {
 		data : $('#signupForm').serialize(),// 你的formid
 		async : false,
 		error : function(request) {
-			alert("Connection error");
+			console.log("Connection error");
 		},
 		success : function(data) {
 			if (data.code == 0) {
@@ -47,7 +47,6 @@ function getCheckedRoles() {
 }
 function setCheckedRoles() {
 	var roleIds = $("#roleIds").val();
-	alert(roleIds);
 	var adIds = "";
 	$("input:checkbox[name=role]:checked").each(function(i) {
 		if (0 == i) {

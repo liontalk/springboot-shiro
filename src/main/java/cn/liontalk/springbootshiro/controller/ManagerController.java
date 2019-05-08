@@ -65,6 +65,7 @@ public class ManagerController {
     @ResponseBody
     public AjaxResult updateManagerInfo(ManagerEntity managerEntity) {
         managerService.updateManagerInfo(managerEntity);
+
         return AjaxResult.success(null);
     }
 
@@ -80,7 +81,8 @@ public class ManagerController {
             if (!CollectionUtils.isEmpty(list)) {
                 for (RoleEntity roleEntity : list) {
                     RoleVO roleVO = new RoleVO();
-                    BeanUtils.copyProperties(roleEntity, roleVO);
+                    roleVO.setRoleId(roleEntity.getRoleId());
+                    roleVO.setRoleName(roleEntity.getRoleName());
                     roleVOList.add(roleVO);
                 }
             }

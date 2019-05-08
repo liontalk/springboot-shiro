@@ -18,7 +18,8 @@ public interface ManagerService {
     /**
      * 增加管理员信息
      *
-     * @param managerEntity
+     * @param managerEntity 管理员信息
+     * @return  int 受影响的行数
      */
     int insertManager(ManagerEntity managerEntity);
 

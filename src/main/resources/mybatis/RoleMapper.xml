@@ -3,7 +3,7 @@
 
 <mapper namespace="cn.liontalk.springbootshiro.dao.RoleDao">
     <resultMap id="BaseColumn" type="cn.liontalk.springbootshiro.entity.RoleEntity">
-        <id property="roleId" column="role_id" jdbcType="INTEGER"/>
+        <id property="roleId" column="role_id" jdbcType="BIGINT"/>
         <result column="role_name" jdbcType="VARCHAR" property="roleName"/>
         <result column="role_sign" jdbcType="VARCHAR" property="roleSign"/>
         <result column="remark" jdbcType="VARCHAR" property="remark"/>
