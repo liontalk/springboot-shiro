@@ -70,7 +70,6 @@ public class ShiroRealm extends AuthorizingRealm {
      */
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principalCollection) {
-        logger.info("权限认证。。。");
 //        //获取登录用户名
 //        String name = (String) principalCollection.getPrimaryPrincipal();
 //        //查询用户名称
@@ -87,7 +86,6 @@ public class ShiroRealm extends AuthorizingRealm {
 //        }
 //        return simpleAuthorizationInfo;
 
-        logger.info("获取用户拥有的权限");
         Integer userId = ShiroUtils.getManagerId();
         Set<String> perms = menuService.listPerms(userId);
         SimpleAuthorizationInfo info = new SimpleAuthorizationInfo();

@@ -1,7 +1,6 @@
 package cn.liontalk.springbootshiro.service;
 
 import cn.liontalk.springbootshiro.entity.ManagerEntity;
-import org.apache.catalina.Manager;
 
 import java.util.List;
 
@@ -27,6 +26,7 @@ public interface ManagerService {
     /**
      * 删除管理员信息
      * @param list
+     * @return int 受影响的行数
      */
     int  deleteManagerInfo(List<Integer> list);
 
@@ -35,7 +35,7 @@ public interface ManagerService {
      * 更新管理员信息
      * @param managerEntity
      */
-    void updateManager(ManagerEntity  managerEntity);
+    void updateManagerInfo(ManagerEntity  managerEntity);
 
     /**
      * 管理员id

@@ -1,7 +1,6 @@
 // 以下为官方示例
 $().ready(function() {
 	validateRule();
-	// $("#signupForm").validate();
 });
 
 $.validator.setDefaults({
@@ -14,7 +13,7 @@ function update() {
 	$.ajax({
 		cache : true,
 		type : "POST",
-		url : "/sys/user/update",
+		url : "/manager/update",
 		data : $('#signupForm').serialize(),// 你的formid
 		async : false,
 		error : function(request) {
@@ -22,7 +21,7 @@ function update() {
 		},
 		success : function(data) {
 			if (data.code == 0) {
-				parent.layer.msg(data.msg);
+				parent.layer.msg("操作成功!");
 				parent.reLoad();
 				var index = parent.layer.getFrameIndex(window.name); // 获取窗口索引
 				parent.layer.close(index);
@@ -112,12 +111,12 @@ function validateRule() {
 	})
 }
 var openDept = function(){
-	layer.open({
-		type:2,
-		title:"选择部门",
-		area : [ '300px', '450px' ],
-		content:"/system/sysDept/treeView"
-	})
+    layer.open({
+        type:2,
+        title:"选择部门",
+        area : [ '300px', '450px' ],
+        content:"/department/treeView"
+    })
 }
 function loadDept( deptId,deptName){
 	$("#deptId").val(deptId);

@@ -61,18 +61,14 @@ public class ManagerController {
 
 
     @ApiOperation(value = "跳转到更新管理信息页面", notes = "跳转到更新管理信息页面")
-    @GetMapping(value = "/update")
-    public AjaxResult<List<ManagerEntity>> toMangerEditPage() {
-        List<ManagerEntity> list = managerService.queryAllManager();
-        return AjaxResult.success(list);
+    @RequestMapping(value = "/update",method = RequestMethod.POST)
+    @ResponseBody
+    public AjaxResult updateManagerInfo(ManagerEntity managerEntity) {
+        managerService.updateManagerInfo(managerEntity);
+        return AjaxResult.success(null);
     }
 
-    @ApiOperation(value = "更新数据库中管理员信息", notes = "更新数据库中管理员信息")
-    @GetMapping(value = "/edit")
-    public AjaxResult<List<ManagerEntity>> updateManagerInfo() {
-        List<ManagerEntity> list = managerService.queryAllManager();
-        return AjaxResult.success(list);
-    }
+
 
     @ApiOperation(value = "增加管理员", notes = "增加管理员")
     @GetMapping(value = "/add")

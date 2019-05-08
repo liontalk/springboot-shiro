@@ -1,6 +1,5 @@
 package cn.liontalk.springbootshiro.service.impl;
 
-import cn.liontalk.springbootshiro.constant.SysConstant;
 import cn.liontalk.springbootshiro.dao.ManagerDao;
 import cn.liontalk.springbootshiro.entity.ManagerEntity;
 import cn.liontalk.springbootshiro.service.ManagerService;
@@ -31,7 +30,7 @@ public class ManagerServiceImpl implements ManagerService {
     }
 
     @Override
-    public void updateManager(ManagerEntity managerEntity) {
+    public void updateManagerInfo(ManagerEntity managerEntity) {
         managerDao.updateManager(managerEntity);
     }
 
