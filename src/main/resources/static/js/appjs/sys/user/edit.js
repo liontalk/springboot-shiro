@@ -54,6 +54,7 @@ function setCheckedRoles() {
     var listcheck = document.getElementsByName("role");//获取checkbox列表
     for(var i=0;i<listcheck.length;i++){
         for (var j in ids) {
+            console.log(listcheck[i].value);
             if (listcheck[i].value == ids[j]) {
                 listcheck[i].checked = true;
             }
