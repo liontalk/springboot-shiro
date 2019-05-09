@@ -51,7 +51,7 @@
     </select>
 
 
-    <insert id="insertManager" parameterType="cn.liontalk.springbootshiro.entity.ManagerEntity">
+    <insert id="insertManager" parameterType="cn.liontalk.springbootshiro.entity.ManagerEntity" useGeneratedKeys="true" keyProperty="userId">
       INSERT INTO
       sys_manager (username,name,password,dept_id,email,mobile,status,user_id_create,create_time,update_time)
       VALUES (#{username},#{name},#{password},#{deptId},#{email},#{mobile},#{status},#{userIdCreate},now(),now())

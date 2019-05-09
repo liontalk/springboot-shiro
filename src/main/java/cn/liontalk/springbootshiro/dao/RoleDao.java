@@ -69,4 +69,12 @@ public interface RoleDao {
      * @return RoleEntity
      */
     RoleEntity queryRoleAndMenuById(@Param("roleId") int roleId);
+
+
+    /**
+     * 插入管理员和角色之间的关系
+     * @param userId
+     * @param list
+     */
+    void insertManagerAndRole(@Param("userId") int userId,@Param("list") List<Long> list);
 }

@@ -1,6 +1,7 @@
 // 以下为官方示例
 $().ready(function() {
 	validateRule();
+    setCheckedRoles();
 });
 
 $.validator.setDefaults({
@@ -46,7 +47,7 @@ function getCheckedRoles() {
 	return adIds;
 }
 function setCheckedRoles() {
-	var roleIds = $("#roleIds").val();
+	var roleIds = $("#roleEntityList").val();
 	var adIds = "";
 	$("input:checkbox[name=role]:checked").each(function(i) {
 		if (0 == i) {

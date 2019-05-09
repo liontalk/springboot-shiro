@@ -29,7 +29,11 @@ public class ManagerServiceImpl implements ManagerService {
     @Override
     public int insertManager(ManagerEntity managerEntity) {
 
-        return managerDao.insertManager(managerEntity);
+        int result = managerDao.insertManager(managerEntity);
+        if (result > 0 && !CollectionUtils.isEmpty(managerEntity.getRoleEntityList())) {
+            roleDao.insertManagerAndRole(managerEntity.getUserId(),managerEntity.getRoleEntityList());
+        }
+        return result;
     }
 
     @Override
@@ -46,14 +50,14 @@ public class ManagerServiceImpl implements ManagerService {
     public ManagerEntity queryManagerById(int id) {
         List<Long> roleEntityList = new ArrayList<>();
         ManagerEntity managerEntity = managerDao.queryManagerById(id);
-        if(null!=managerEntity){
-           List<RoleEntity> list = roleDao.queryManagerRoleById(id);
-           if(!CollectionUtils.isEmpty(list)){
-               for(RoleEntity entity:list){
-                   roleEntityList.add(entity.getRoleId());
-               }
-           }
-           managerEntity.setRoleEntityList(roleEntityList);
+        if (null != managerEntity) {
+            List<RoleEntity> list = roleDao.queryManagerRoleById(id);
+            if (!CollectionUtils.isEmpty(list)) {
+                for (RoleEntity entity : list) {
+                    roleEntityList.add(entity.getRoleId());
+                }
+            }
+            managerEntity.setRoleEntityList(roleEntityList);
         }
         return managerEntity;
     }

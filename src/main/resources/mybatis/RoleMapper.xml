@@ -113,4 +113,15 @@
         where role.role_id = #{roleId};
     </select>
 
+
+    <insert id="insertManagerAndRole" >
+        INSERT into sys_manager_role (user_id,role_id) VALUES
+        <foreach collection="list" item="item" separator=",">
+            (
+            #{userId},
+            #{item}
+            )
+        </foreach>
+    </insert>
+
 </mapper>
