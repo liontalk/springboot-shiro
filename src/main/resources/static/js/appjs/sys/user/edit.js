@@ -49,13 +49,11 @@ function getCheckedRoles() {
 function setCheckedRoles() {
     var roleEntityList = $("#roleEntityList").val();
     var result = roleEntityList.substring(1, roleEntityList.length - 1);
-   // var ids = result.split(",");
-    var roleList = $("#roleList").val();
-    var ids= "59,60,106".split(",");
-    var listcheck = document.getElementsByName("role");//获取checkbox列表
+    var ids = result.split(",");
+    var listcheck = document.getElementsByName("role");
     for(var i=0;i<listcheck.length;i++){
         for (var j in ids) {
-            if (listcheck[i].value == ids[j]) {
+            if (listcheck[i].value == ids[j].trim()) {
                 listcheck[i].checked = true;
             }
         }
