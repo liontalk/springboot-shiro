@@ -100,4 +100,9 @@
             #{item}
         </foreach>
     </delete>
+
+
+    <delete id="deleteRoleAndManager">
+        DELETE FROM  sys_manager_role WHERE user_id = #{userId}
+    </delete>
 </mapper>

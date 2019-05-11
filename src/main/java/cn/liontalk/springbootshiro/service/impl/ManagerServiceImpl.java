@@ -5,8 +5,10 @@ import cn.liontalk.springbootshiro.dao.RoleDao;
 import cn.liontalk.springbootshiro.entity.ManagerEntity;
 import cn.liontalk.springbootshiro.entity.RoleEntity;
 import cn.liontalk.springbootshiro.service.ManagerService;
+import lombok.ToString;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
 
 import java.util.ArrayList;
@@ -26,12 +28,13 @@ public class ManagerServiceImpl implements ManagerService {
         return managerDao.queryAllManager();
     }
 
+    @Transactional(rollbackFor = Exception.class)
     @Override
     public int insertManager(ManagerEntity managerEntity) {
-
         int result = managerDao.insertManager(managerEntity);
+        managerDao.deleteRoleAndManager(managerEntity.getUserId());
         if (result > 0 && !CollectionUtils.isEmpty(managerEntity.getRoleEntityList())) {
-            roleDao.insertManagerAndRole(managerEntity.getUserId(),managerEntity.getRoleEntityList());
+            roleDao.insertManagerAndRole(managerEntity.getUserId(), managerEntity.getRoleEntityList());
         }
         return result;
     }
@@ -41,9 +44,17 @@ public class ManagerServiceImpl implements ManagerService {
         return managerDao.deleteManager(list);
     }
 
+
+    @Transactional(rollbackFor = Exception.class)
     @Override
     public void updateManagerInfo(ManagerEntity managerEntity) {
-        managerDao.updateManager(managerEntity);
+        if (null != managerEntity) {
+            managerDao.deleteRoleAndManager(managerEntity.getUserId());
+            managerDao.updateManager(managerEntity);
+            if (!CollectionUtils.isEmpty(managerEntity.getRoleEntityList())) {
+                roleDao.insertManagerAndRole(managerEntity.getUserId(), managerEntity.getRoleEntityList());
+            }
+        }
     }
 
     @Override

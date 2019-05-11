@@ -61,4 +61,12 @@ public interface ManagerDao {
      */
     ManagerEntity queryManagerById(@Param("userId") int userId);
 
+
+    /**
+     * 删除角色和管理员之间的关联关系
+     * @param userId 删除角色得id
+     * @return  受影响的行数
+     */
+    int deleteRoleAndManager(@Param("userId") int userId);
+
 }

@@ -65,7 +65,6 @@ public class ManagerController {
     @ResponseBody
     public AjaxResult updateManagerInfo(ManagerEntity managerEntity) {
         managerService.updateManagerInfo(managerEntity);
-
         return AjaxResult.success(null);
     }
 
