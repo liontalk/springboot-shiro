@@ -49,19 +49,17 @@ function getCheckedRoles() {
 function setCheckedRoles() {
     var roleEntityList = $("#roleEntityList").val();
     var result = roleEntityList.substring(1, roleEntityList.length - 1);
-    var ids = result.split(",");
+   // var ids = result.split(",");
     var roleList = $("#roleList").val();
+    var ids= "59,60,106".split(",");
     var listcheck = document.getElementsByName("role");//获取checkbox列表
     for(var i=0;i<listcheck.length;i++){
         for (var j in ids) {
-            console.log(listcheck[i].value);
             if (listcheck[i].value == ids[j]) {
                 listcheck[i].checked = true;
             }
         }
     }
-
-
 }
     function validateRule() {
         var icon = "<i class='fa fa-times-circle'></i> ";
