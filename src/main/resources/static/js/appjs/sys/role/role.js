@@ -150,7 +150,7 @@ function batchRemove() {
         layer.msg("请选择要删除的数据");
         return;
     }
-    layer.confirm("确认要删除选中的'" + rows.length + "'条数据吗?", {
+    layer.confirm("确认要删除选中的" + rows.length + "条数据吗?", {
         btn: ['确定', '取消']
     }, function () {
         var ids = new Array();
