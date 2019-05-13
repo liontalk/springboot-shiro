@@ -27,7 +27,7 @@
     </select>
 
     <delete id="delete">
-        update sys_dept set del_flag = 0 where dept_id = #{deptId}
+        DELETE FROM sys_dept WHERE dept_Id = #{deptId}
     </delete>
 
 
@@ -76,7 +76,7 @@
     </update>
 
     <select id="queryAllDepartment" resultMap="DeptResultMap">
-        SELECT <include refid="BaseColumnSql"/> from sys_dept as dept WHERE dept.del_flag = 1
+        SELECT <include refid="BaseColumnSql"/> from sys_dept as dept
     </select>
 
 
