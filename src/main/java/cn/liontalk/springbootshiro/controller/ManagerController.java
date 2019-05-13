@@ -99,6 +99,12 @@ public class ManagerController {
     @RequestMapping(value = "/save", method = RequestMethod.POST)
     @ResponseBody
     public AjaxResult insertManagerToDB(ManagerEntity managerEntity) {
+        if(null==managerEntity){
+            return AjaxResult.error(CodeMsg.PARAM_EMPTY);
+        }
+        if(!StringUtils.isEmpty(managerEntity.getPassword())){
+            managerEntity.setPassword(MD5Utils.encrypt(managerEntity.getUsername(),managerEntity.getPassword()));
+        }
         int result = managerService.insertManager(managerEntity);
         return AjaxResult.success(result);
     }
