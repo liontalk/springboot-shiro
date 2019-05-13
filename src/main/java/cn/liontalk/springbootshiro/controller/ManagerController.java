@@ -13,6 +13,7 @@ import cn.liontalk.springbootshiro.vo.RoleVO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.apache.shiro.util.CollectionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -42,6 +43,7 @@ public class ManagerController {
     private RoleService roleService;
 
 
+    @RequiresPermissions("sys:user:user")
     @ApiOperation(value = "管理员页面", notes = "管理员页面")
     @GetMapping(value = "/page")
     public String toManagerPage() {
@@ -70,6 +72,7 @@ public class ManagerController {
 
 
 
+    @RequiresPermissions("sys:user:add")
     @ApiOperation(value = "增加管理员", notes = "增加管理员")
     @GetMapping(value = "/add")
     public String toMangerAddPage(ModelMap modelMap) {
@@ -91,6 +94,7 @@ public class ManagerController {
     }
 
 
+    @RequiresPermissions("sys:user:add")
     @ApiOperation(value = "增加管理员到数据库", notes = "增加管理员到数据库")
     @RequestMapping(value = "/save", method = RequestMethod.POST)
     @ResponseBody
@@ -100,6 +104,7 @@ public class ManagerController {
     }
 
 
+    @RequiresPermissions("sys:user:remove")
     @ApiOperation(value = "管理员删除", notes = "管理员删除")
     @RequestMapping(value = "/delete", method = RequestMethod.POST)
     @ResponseBody
@@ -117,6 +122,7 @@ public class ManagerController {
     }
 
 
+    @RequiresPermissions("sys:user:batchRemove")
     @ApiOperation(value = "批量删除管理员删除", notes = "批量删除管理员删除")
     @RequestMapping(value = "/batch/delete", method = RequestMethod.POST)
     @ResponseBody
@@ -181,6 +187,7 @@ public class ManagerController {
      * @param userId
      * @return String
      */
+    @RequiresPermissions("sys:user:edit")
     @ApiOperation(value = "管理员重置密码", notes = "管理员重置密码")
     @RequestMapping(value = "/edit/{id}")
     public String toUpdateManagerPage(@PathVariable("id") int userId, ModelMap modelMap) {

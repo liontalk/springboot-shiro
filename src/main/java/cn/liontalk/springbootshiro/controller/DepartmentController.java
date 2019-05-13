@@ -8,6 +8,7 @@ import cn.liontalk.springbootshiro.vo.DepartmentVO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.apache.ibatis.annotations.Param;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,12 +40,15 @@ public class DepartmentController {
     private DepartmentService departmentService;
 
 
+    @RequiresPermissions("system:sysDept:sysDept")
     @RequestMapping(value = "/page")
     @ApiOperation(value = "跳转到部门信息页面", notes = "跳转到部门信息页面")
     public String toDepartmentPage() {
         return PREFIX + "dept";
     }
 
+
+    @RequiresPermissions("system:sysDept:sysDept")
     @ApiOperation(value = "获取部门信息列表", notes = "获取部门信息列表")
     @RequestMapping(value = "/list", method = RequestMethod.GET)
     @ResponseBody
@@ -54,6 +58,7 @@ public class DepartmentController {
     }
 
 
+    @RequiresPermissions("system:sysDept:add")
     @ApiOperation(value = "跳转到增加页面", notes = "跳转到增加的页面")
     @RequestMapping(value = "/add/{pId}", method = RequestMethod.GET)
     public String toDepartmentAddPage(@PathVariable("pId") Integer pId, ModelMap modelMap) {
@@ -67,6 +72,8 @@ public class DepartmentController {
         return PREFIX + "/add";
     }
 
+
+    @RequiresPermissions("system:sysDept:add")
     @ApiOperation(value = "增加部门数据到数据库", notes = "增加部门信息到数据库")
     @RequestMapping(value = "/save", method = RequestMethod.POST)
     @ResponseBody
@@ -75,6 +82,7 @@ public class DepartmentController {
         return AjaxResult.success(result);
     }
 
+    @RequiresPermissions("system:sysDept:edit")
     @ApiOperation(value = "跳转到更新页面", notes = "跳转到更新的页面")
     @RequestMapping(value = "/edit/{deptId}", method = RequestMethod.GET)
     public String toDepartmentUpdatePage(@PathVariable("deptId") Integer deptId, ModelMap modelMap) {
@@ -83,6 +91,7 @@ public class DepartmentController {
         return PREFIX + "/edit";
     }
 
+    @RequiresPermissions("system:sysDept:edit")
     @ApiOperation(value = "增加部门数据到数据库", notes = "增加部门信息到数据库")
     @RequestMapping(value = "/update", method = RequestMethod.POST)
     @ResponseBody
@@ -92,6 +101,7 @@ public class DepartmentController {
     }
 
 
+    @RequiresPermissions("system:sysDept:remove")
     @ApiOperation(value = "删除部门数据", notes = "删除部门数据")
     @RequestMapping(value = "/delete/{deptId}", method = RequestMethod.POST)
     @ResponseBody
@@ -99,7 +109,6 @@ public class DepartmentController {
         int result = departmentService.delete(deptId);
         return AjaxResult.success(result);
     }
-
 
 
     @ApiOperation(value = "获得部门数据树", notes = "获得部门数据树")

@@ -9,6 +9,7 @@ import cn.liontalk.springbootshiro.service.RoleService;
 import cn.liontalk.springbootshiro.util.PageUtils;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.apache.tomcat.util.http.parser.HttpParser;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -45,6 +46,7 @@ public class RoleController {
 
 
 
+    @RequiresPermissions("sys:role:role")
     @ApiOperation(value = "角色管理页面", notes = "角色管理页面")
     @GetMapping(value = "/page")
     public String  toManagerPage() {
@@ -53,6 +55,7 @@ public class RoleController {
     }
 
 
+    @RequiresPermissions("sys:role:add")
     @ApiOperation(value = "角色增加页面", notes = "角色增加页面")
     @GetMapping(value = "/add")
     public String  toRoleAddPage() {
@@ -61,6 +64,7 @@ public class RoleController {
     }
 
 
+    @RequiresPermissions("sys:role:edit")
     @ApiOperation(value = "角色更新页面", notes = "角色更新页面")
     @GetMapping(value = "/edit/{roleId}")
     public String  toRoleUpdatePage(@PathVariable("roleId") Integer roleId,ModelMap modelMap) {
@@ -73,6 +77,7 @@ public class RoleController {
     }
 
 
+    @RequiresPermissions("sys:role:add")
     @ApiOperation(value = "角色增加页面", notes = "角色增加页面")
     @RequestMapping(value = "/save",method = RequestMethod.POST)
     @ResponseBody
@@ -87,6 +92,7 @@ public class RoleController {
 
 
 
+    @RequiresPermissions("sys:role:edit")
     @ApiOperation(value = "角色更新功能", notes = "角色更新功能")
     @RequestMapping(value = "/update",method = RequestMethod.POST)
     @ResponseBody
@@ -107,6 +113,7 @@ public class RoleController {
 
 
 
+    @RequiresPermissions("sys:role:remove")
     @ApiOperation(value = "角色删除", notes = "角色删除")
     @RequestMapping(value = "/delete",method = RequestMethod.POST)
     @ResponseBody
@@ -125,6 +132,7 @@ public class RoleController {
 
 
 
+    @RequiresPermissions("sys:role:batchRemove")
     @ApiOperation(value = "批量删除角色", notes = "批量删除角色")
     @RequestMapping(value = "/batch/delete",method = RequestMethod.POST)
     @ResponseBody

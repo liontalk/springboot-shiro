@@ -8,6 +8,7 @@ import cn.liontalk.springbootshiro.service.MenuService;
 import cn.liontalk.springbootshiro.vo.MenuVO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,6 +39,7 @@ public class MenuController {
     @Autowired
     MenuService menuService;
 
+    @RequiresPermissions("sys:menu:menu")
     @ApiOperation(value = "菜单页面", notes = "菜单页面")
     @GetMapping(value = "/page")
     public String toMenuPage() {
@@ -46,6 +48,7 @@ public class MenuController {
     }
 
 
+    @RequiresPermissions("sys:menu:menu")
     @ApiOperation(value = "角色页面列表", notes = "角色页面列表")
     @GetMapping(value = "/list")
     @ResponseBody
@@ -55,6 +58,7 @@ public class MenuController {
     }
 
 
+    @RequiresPermissions("sys:menu:add")
     @ApiOperation(value = "菜单增加页面", notes = "菜单增加页面")
     @GetMapping(value = "/add/{menuId}")
     public String toMenuAddPage(@PathVariable("menuId") Integer menuId, ModelMap modelMap) {
@@ -66,6 +70,8 @@ public class MenuController {
     }
 
 
+
+    @RequiresPermissions("sys:menu:edit")
     @ApiOperation(value = "菜单编辑页面", notes = "菜单编辑页面")
     @GetMapping(value = "/edit/{menuId}")
     public String toMenuEditPage(@PathVariable("menuId") Integer menuId, ModelMap modelMap) {
@@ -80,6 +86,7 @@ public class MenuController {
         return PREFIX + "/edit";
     }
 
+    @RequiresPermissions("sys:menu:remove")
     @ApiOperation(value = "菜单删除", notes = "菜单删除")
     @RequestMapping(value = "/delete/{menuId}", method = RequestMethod.POST)
     @ResponseBody
@@ -94,6 +101,7 @@ public class MenuController {
     }
 
 
+    @RequiresPermissions("sys:menu:add")
     @ApiOperation(value = "菜单增加", notes = "菜单增加")
     @RequestMapping(value = "/save", method = RequestMethod.POST)
     @ResponseBody
@@ -102,6 +110,8 @@ public class MenuController {
         return AjaxResult.success(result);
     }
 
+
+    @RequiresPermissions("sys:menu:remove")
     @ApiOperation(value = "批量菜单删除", notes = "批量菜单删除")
     @RequestMapping(value = "/batch/delete", method = RequestMethod.POST)
     @ResponseBody
