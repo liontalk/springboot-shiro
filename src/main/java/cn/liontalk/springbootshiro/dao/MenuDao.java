@@ -34,7 +34,7 @@ public interface MenuDao {
      * 插入角色和管理员之前的关联关系
      * @return int
      */
-    int insertRoleAndMenuRel(@Param("id") Long id,List<Long> list);
+    int insertRoleAndMenuRel(@Param("id") Long id,@Param("list") List<Long> list);
 
 
     /**

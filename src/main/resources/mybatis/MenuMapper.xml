@@ -57,7 +57,7 @@
 	</select>
 
 
-    <insert id="insertRoleAndMenuRel" parameterType="list">
+    <insert id="insertRoleAndMenuRel">
         insert into sys_role_menu (role_id,menu_id) values
         <foreach collection="list" item="item" index="index" separator=",">
             (
