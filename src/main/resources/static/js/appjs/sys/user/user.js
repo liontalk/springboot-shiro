@@ -1,7 +1,7 @@
 var prefix = "/manager"
 $(function() {
 	var deptId = '';
-	//getTreeData();
+	getTreeData();
 	load(deptId);
 });
 
@@ -198,7 +198,7 @@ function batchRemove() {
 function getTreeData() {
 	$.ajax({
 		type : "GET",
-		url : "/system/sysDept/tree",
+		url : "/department/tree",
 		success : function(tree) {
 			loadTree(tree);
 		}

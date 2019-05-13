@@ -66,9 +66,11 @@ public class IndexController {
     @PostMapping(value = "/login")
     @ResponseBody
     public AjaxResult managerLogin(@RequestParam("username") String username,
-                                   @RequestParam("password") String password, HttpSession session) {
+                                   @RequestParam("password") String password,
+                                   boolean rememberMe,
+                                   HttpSession session) {
         password = MD5Utils.encrypt(username, password);
-        UsernamePasswordToken token = new UsernamePasswordToken(username, password);
+        UsernamePasswordToken token = new UsernamePasswordToken(username, password,rememberMe);
         Subject subject = SecurityUtils.getSubject();
         try {
             subject.login(token);
