@@ -90,7 +90,7 @@ public class ManagerController {
             }
             modelMap.put("list", roleVOList);
         }
-        return PREFIX + "/add";
+        return PREFIX + "add";
     }
 
 

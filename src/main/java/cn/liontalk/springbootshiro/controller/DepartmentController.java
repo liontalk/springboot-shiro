@@ -32,7 +32,7 @@ import java.util.List;
 @Api(value = "部门信息")
 public class DepartmentController {
 
-    private static final String PREFIX = "system/dept/";
+    private static final String PREFIX = "system/dept";
 
     public static final Logger logger = LoggerFactory.getLogger(DepartmentController.class);
 
@@ -44,7 +44,7 @@ public class DepartmentController {
     @RequestMapping(value = "/page")
     @ApiOperation(value = "跳转到部门信息页面", notes = "跳转到部门信息页面")
     public String toDepartmentPage() {
-        return PREFIX + "dept";
+        return PREFIX + "/dept";
     }
 
 
@@ -69,7 +69,7 @@ public class DepartmentController {
             DepartEntity departEntity = departmentService.queryDeptById(pId);
             modelMap.put("pName", departEntity.getName());
         }
-        return PREFIX + "/add";
+        return PREFIX + "add";
     }
 
 
@@ -88,7 +88,7 @@ public class DepartmentController {
     public String toDepartmentUpdatePage(@PathVariable("deptId") Integer deptId, ModelMap modelMap) {
         DepartmentVO department = departmentService.queryDeptById(deptId);
         modelMap.put("sysDept", department);
-        return PREFIX + "/edit";
+        return PREFIX + "edit";
     }
 
     @RequiresPermissions("system:sysDept:edit")
@@ -114,7 +114,7 @@ public class DepartmentController {
     @ApiOperation(value = "获得部门数据树", notes = "获得部门数据树")
     @RequestMapping(value = "/treeView", method = RequestMethod.GET)
     public String treeView() {
-        return PREFIX + "deptTree";
+        return PREFIX + "/deptTree";
     }
 
 

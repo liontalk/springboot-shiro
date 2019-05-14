@@ -32,7 +32,7 @@ import java.util.List;
 public class MenuController {
 
 
-    public static final String PREFIX = "system/menu";
+    public static final String PREFIX = "system/menu/";
 
     private static final Logger logger = LoggerFactory.getLogger(MenuController.class);
 
@@ -44,7 +44,7 @@ public class MenuController {
     @GetMapping(value = "/page")
     public String toMenuPage() {
         logger.info("跳转到菜单页面....");
-        return PREFIX + "/menu";
+        return PREFIX + "menu";
     }
 
 
@@ -66,7 +66,7 @@ public class MenuController {
         MenuVO menuVO = menuService.queryMenuVoById(menuId);
         modelMap.put("menuVO", menuVO);
         modelMap.put("menuId", menuId);
-        return PREFIX + "/add";
+        return PREFIX + "add";
     }
 
 
@@ -83,7 +83,7 @@ public class MenuController {
         } else {
 
         }
-        return PREFIX + "/edit";
+        return PREFIX + "edit";
     }
 
     @RequiresPermissions("sys:menu:remove")
