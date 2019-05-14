@@ -195,11 +195,33 @@ function batchRemove() {
 		});
 	}, function() {});
 }
+// function getTreeData() {
+// 	$.ajax({
+// 		type : "GET",
+// 		url : "/department/tree",
+// 		success : function(tree) {
+// 			loadTree(tree);
+// 		}
+// 	});
+// }
+// function loadTree(tree) {
+// 	$('#jstree').jstree({
+// 		'core' : {
+// 			'data' : tree
+// 		},
+// 		"plugins" : [ "search" ]
+// 	});
+// 	$('#jstree').jstree().open_all();
+//
+// }
+
+
 function getTreeData() {
 	$.ajax({
 		type : "GET",
 		url : "/department/tree",
 		success : function(tree) {
+			console.log(tree);
 			loadTree(tree);
 		}
 	});
@@ -213,6 +235,7 @@ function loadTree(tree) {
 	});
 	$('#jstree').jstree().open_all();
 }
+
 $('#jstree').on("changed.jstree", function(e, data) {
 	if (data.selected == -1) {
 		var opt = {
