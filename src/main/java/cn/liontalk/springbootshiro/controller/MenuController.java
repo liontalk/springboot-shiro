@@ -32,7 +32,7 @@ import java.util.List;
 public class MenuController {
 
 
-    public static final String PREFIX = "system/menu/";
+    public static final String PREFIX = "system/menu";
 
     private static final Logger logger = LoggerFactory.getLogger(MenuController.class);
 
